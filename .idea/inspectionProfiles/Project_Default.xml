@@ -1,0 +1,48 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="2">
+            <item index="0" class="java.lang.String" itemvalue="href" />
+            <item index="1" class="java.lang.String" itemvalue="color" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N803" />
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyTypeCheckerInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="pandas" />
+          <option value="int.price" />
+          <option value="int.name" />
+          <option value="list.capacity" />
+          <option value="list.next" />
+          <option value="list.value" />
+          <option value="list.stations" />
+          <option value="home.models.Todo.objects" />
+          <option value="web.models.Category.objects" />
+          <option value="web.models.News.objects" />
+          <option value="buyer.max_interest" />
+          <option value="list.tolist" />
+          <option value="matplotlib.backend_bases.FigureManagerBase.*" />
+          <option value="numpy.ndarray.axis" />
+          <option value="numpy.ndarray.imshow" />
+          <option value="numpy.ndarray.set_title" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
