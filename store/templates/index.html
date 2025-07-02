@@ -13,9 +13,57 @@
 
     <!--End Header-->
 
+    <!-- category-slider -->
+        <section class="product-slider pt-5 pb-5">
+            <div class="container">
+                <div class="category-slider">
+                    <div class="slides-cat"  style="text-align: center;">
+                        <a href="#">
+                            <img src="{% static 'assets/mobile-cat-1.webp'%}" class="rounded-circle" alt="mobile-category">  
+                        </a>
+                        <div class="cat-text">موبایل</div>
+                    </div>
+
+                    <div class="slides-cat">
+                        <a href="#">
+                            <img src="{% static 'assets/laptop-cat-2.webp'%}" class="rounded-circle" alt="latop-category">  
+                        </a>
+                        <div class="cat-text">تبلت و لپ تاپ</div>
+                    </div>
+
+                    <div class="slides-cat">
+                        <a href="#">
+                            <img src="{% static 'assets/watch-cat-3.webp'%}" class="rounded-circle" alt="watch-category">  
+
+                        </a>
+                        <div class="cat-text">ساعت هوشمند</div>
+                    </div>
+                    <div class="slides-cat">
+                        <a href="#">
+                            <img src="{% static 'assets/earphone-cat-4.webp'%}" class="rounded-circle" alt="earphone-category">  
+                        </a>
+                        <div class="cat-text">هندزفری</div>
+                    </div>
+                    <div class="slides-cat">
+                        <a href="#">
+                            <img src="{% static 'assets/widget-cat-5.webp'%}" class="rounded-circle" alt="widget-category">  
+                        </a>
+                        <div class="cat-text">لوازم جانبی</div>
+                    </div>
+                    <div class="slides-cat">
+                        <a href="#">
+                            <img src="{% static 'assets/gaming-cat-6.webp'%}"  alt="gaming-category">  
+                        </a>
+                        <div class="cat-text">گیمینگ</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-- End category-slider -->
+
 
      <!-- Section-->
-     <section class="py-5">
+     <section >
          <div class="container px-4 px-lg-5 mt-5">
              <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                  {% for item in products %}
