@@ -133,6 +133,10 @@ header .intro img {
 
 /* category-slider */
 
+section.product-slider {
+    height: 300px !important;
+}
+
 .slides-cat a img {
     width: 150px;
     height: 150px;
@@ -155,3 +159,42 @@ header .intro img {
 
 
 /*End category-slider */
+
+
+/* product */
+
+.pro-item .card {
+    background-color: var(--wd-prod-bg, var(--bgcolor-white));
+    box-shadow: 0 0 4px rgba(0, 0, 0, .12);
+    gap: 0;
+}
+
+.card-body {
+    padding: 1.2rem;
+}
+
+.pro-item * {
+    font-size: 14px;
+}
+
+.btn-item-info {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border: 1px solid #ff6600;
+    transition: all 0.3s ease;
+    /* padding: 0.5rem 1rem; */
+}
+
+.btn-item-info:hover {
+    background-color: #ff6600c0;
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.card-img-top {
+    width: 268px;
+    height: 268px;
+}
+
+
+/* End product */
