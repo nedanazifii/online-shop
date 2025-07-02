@@ -34,7 +34,7 @@ class SignUpForm(UserCreationForm):
                 'class': 'form-control',
                 'name': 'password',
                 'type': 'password',
-                'placeholder': 'رمز بالا 8 کارکتر را وارد کنید'
+                'placeholder': 'رمز عبور'
 
             }
         )
@@ -47,8 +47,7 @@ class SignUpForm(UserCreationForm):
                 'class': 'form-control',
                 'name': 'password',
                 'type': 'password',
-                'placeholder': 'دوباره رمز 8 کارکتر را وارد کنید'
-
+                'placeholder': 'تکرار رمز عبور'
             }
         )
     )

@@ -1,25 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-     <header class="bg-dark py-5">
-         <div class="container px-4 px-lg-5 my-5">
-             <div class="text-center text-white">
-                 <h1 class="display-4 fw-bolder"> ثبت نام کنید </h1>
-                 <p class="lead fw-normal text-white-50 mb-0"> صفحه ثبت نام</p>
-             </div>
-         </div>
-     </header>
-
-<br><br>
     <div class="container">
         <div class="row">
             <center>
                 <div class="col-8">
                     <p align="justify">
-                        <form method="post" action="{% url 'signup' %}">
+                        <form method="post" action="{% url 'signup' %}" class="signup-form">
                               {% csrf_token %}
+                                    <h3 style="font-size: 30px">ثبت نام</h3>
                                     {{ form.as_p }}
-                                    <br><br>
+                                    <!-- <br><br> -->
                               <button type="submit" class="btn btn-secondary">ثبت نام</button>
                         </form>
                     </p>
