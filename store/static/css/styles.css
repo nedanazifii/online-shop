@@ -198,3 +198,79 @@ section.product-slider {
 
 
 /* End product */
+
+
+/* login and sign up */
+
+.login-form {
+    width: 40%;
+}
+
+@media (max-width: 1200px) {
+    .login-form {
+        width: 50%;
+    }
+}
+
+@media (max-width: 992px) {
+    .login-form {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-form {
+        width: 70%;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-form {
+        width: 90%;
+    }
+}
+
+.login-form input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background-color: #f8f8f8;
+    padding: 15px 20px;
+    margin-bottom: 18px;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border: 1px solid var(--primary) !important;
+    box-shadow: 0 0 2px var(--primary) !important;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgb(184, 182, 182);
+    font-size: 12px;
+}
+
+.login-form h3 {
+    font-family: 'Iranian Sans';
+    margin-bottom: 40px;
+}
+
+.login-form button {
+    width: 60%;
+    padding: 15px 20px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+    transition: all .5s ease;
+    margin-top: 15px;
+}
+
+.login-form button:hover {
+    background-color: #ff6600e5;
+    color: var(--secondary);
+    border-color: var(--primary);
+}
+
+
+/* End login and sign up */
