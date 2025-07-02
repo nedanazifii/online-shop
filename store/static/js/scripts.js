@@ -7,19 +7,18 @@ $(".category-slider").slick({
     autoplay: true,
     autoplaySpeed: 2000,
     arrows: false,
-    loop: true,
     rtl: true,
     responsive: [{
-            breakpoint: 1024,
+            breakpoint: 1200,
             settings: {
-                slidesToShow: 6
+                slidesToShow: 4
             }
         },
         {
             breakpoint: 768,
             settings: {
 
-                slidesToShow: 4
+                slidesToShow: 3
             }
         },
         {

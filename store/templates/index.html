@@ -18,40 +18,40 @@
             <div class="container">
                 <div class="category-slider">
                     <div class="slides-cat"  style="text-align: center;">
-                        <a href="#">
-                            <img src="{% static 'assets/mobile-cat-1.webp'%}" class="rounded-circle" alt="mobile-category">  
-                        </a>
+                           <a href="{% url 'category' 'موبایل' %}">
+                                <img src="{% static 'assets/mobile-cat-1.webp'%}" class="rounded-circle" alt="mobile-category">  
+                           </a> 
                         <div class="cat-text">موبایل</div>
                     </div>
 
                     <div class="slides-cat">
-                        <a href="#">
+                        <a href="{% url 'category' 'تبلت و لپ تاپ' %}">
                             <img src="{% static 'assets/laptop-cat-2.webp'%}" class="rounded-circle" alt="latop-category">  
                         </a>
                         <div class="cat-text">تبلت و لپ تاپ</div>
                     </div>
 
                     <div class="slides-cat">
-                        <a href="#">
+                        <a href="{% url 'category' 'ساعت هوشمند' %}">
                             <img src="{% static 'assets/watch-cat-3.webp'%}" class="rounded-circle" alt="watch-category">  
 
                         </a>
                         <div class="cat-text">ساعت هوشمند</div>
                     </div>
                     <div class="slides-cat">
-                        <a href="#">
+                        <a href="{% url 'category' 'هندزفری' %}">
                             <img src="{% static 'assets/earphone-cat-4.webp'%}" class="rounded-circle" alt="earphone-category">  
                         </a>
                         <div class="cat-text">هندزفری</div>
                     </div>
                     <div class="slides-cat">
-                        <a href="#">
+                        <a href="{% url 'category' 'لوازم جانبی' %}">
                             <img src="{% static 'assets/widget-cat-5.webp'%}" class="rounded-circle" alt="widget-category">  
                         </a>
                         <div class="cat-text">لوازم جانبی</div>
                     </div>
                     <div class="slides-cat">
-                        <a href="#">
+                        <a href="{% url 'category' 'گیمینگ' %}">
                             <img src="{% static 'assets/gaming-cat-6.webp'%}"  alt="gaming-category">  
                         </a>
                         <div class="cat-text">گیمینگ</div>
@@ -69,7 +69,7 @@
                  {% for item in products %}
                     {% if item.is_sale %}
                          <div class="col mb-5 pro-item">
-                             <div class="card h-100">
+                             <div class="card h-100 align-items-center">
                                  <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">تخفیف ویژه</div>
                                  <!-- Product image-->
                                  <img class="card-img-top" src="{{ item.picture.url }}" alt="..." />
@@ -100,7 +100,7 @@
                          </div>
                      {% else %}
                          <div class="col mb-5 pro-item">
-                             <div class="card h-100">
+                             <div class="card h-100 align-items-center">
                                  <!-- Product image-->
                                  <img class="card-img-top" src="{{ item.picture.url }}" alt="..." />
                                  <!-- Product details-->
