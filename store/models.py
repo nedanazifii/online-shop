@@ -19,7 +19,7 @@ class Customer(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 class Product(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=100)
     description = models.CharField(max_length=500, default='', blank=True, null=True)
     price = models.DecimalField(default=0, decimal_places=0, max_digits=12)
     category = models.ForeignKey(Category,on_delete=models.CASCADE, default=1)
