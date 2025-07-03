@@ -3,14 +3,6 @@
 {% load humanize %}
 
 {%  block content %}
-
-    <!-- Header -->
-    <header >
-        <div class="intro">
-            <img src="{% static 'assets/hero.png'%}" alt="hero">
-        </div>
-    </header>
-
     <br>
     {% if cart_products %}
         {% for product in cart_products %}
@@ -96,7 +88,7 @@
         var productid = $(this).data('index')
         $.ajax({
             type: 'POST',
-            url: '{% url 'cart_update' %}',
+            url: "{% url 'cart_update' %}",
             data:{
                 product_id: $(this).data('index'),
                 product_qty : $('#select'+productid+' option:selected').text(),
@@ -122,7 +114,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url 'cart_delete' %}',
+            url: "{% url 'cart_delete' %}",
             data:{
                 product_id: $(this).data('index'),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
