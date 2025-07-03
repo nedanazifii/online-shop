@@ -9,7 +9,7 @@ from .forms import SignUpForm
 
 
 def product_list(request):
-    all_products = Product.objects.all()[:3]
+    all_products = Product.objects.all()[:6]
     return render(request, 'index.html', {'products': all_products})
 
 def all_product_list(request):
