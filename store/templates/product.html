@@ -24,6 +24,17 @@
                       {% else %}
                         <p class="card-text">قیمت:{{ product.price |intcomma }}</p>
                       {% endif %}
+
+                      <br>
+
+                      <select class="form-select" id="cart-qty">
+                          <option selected>تعداد</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                      </select>
+
                       <br><br><br>
 
                       <button class="btn btn-secondary" type="button" value="{{ product.id }}" id="add-cart">افزودن به سبد خرید</button>
@@ -44,6 +55,7 @@
             url: '{% url 'cart_add' %}',
             data:{
                 product_id: $('#add-cart').val(),
+                product_qty : $('#cart-qty option:selected').text(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action : 'post'
             },
