@@ -234,6 +234,30 @@ section.product-slider {
     width: 50%;
 }
 
+@media (max-width: 1200px) {
+    .signup-form {
+        width: 65%;
+    }
+}
+
+@media (max-width: 992px) {
+    .signup-form {
+        width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    .signup-form {
+        width: 85%;
+    }
+}
+
+@media (max-width: 576px) {
+    .signup-form {
+        width: 90%;
+    }
+}
+
 .login-form input,
 .signup-form input {
     width: 100%;

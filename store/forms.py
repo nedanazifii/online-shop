@@ -4,6 +4,10 @@ from django import forms
 
 
 class SignUpForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.pop('autofocus', None)
+        
     first_name = forms.CharField(
         label='',
         max_length=50,
