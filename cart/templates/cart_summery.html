@@ -51,7 +51,6 @@
                                 </select>
                                </p>
 
-
                               <br>
                               <button type="button" data-index={{product.id}}
                                       class="btn btn-primary update-cart" >ویرایش
@@ -69,6 +68,10 @@
                     </div>
                 </div>
             {% endfor %}
+            <br>
+        <center>
+            <h4>مجموع کل سفارشات : {{total|intcomma}}</h4>
+        </center><br><br>
         {% else %}
         <center>
             <h3 class="container">سبد خرید شما خالیست!!</h3><br>
