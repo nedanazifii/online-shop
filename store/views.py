@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm, UpdateUserForm
+from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm
 
 
 def product_list(request):
@@ -76,7 +76,31 @@ def update_user(request):
             messages.success(request, 'اطلاعات ویرایش شد')
             return redirect('home')
 
-        return render(request, 'update_user.html', {'user_form':user_form})
+        return render(request, 'update_user.html', {'user_form': user_form})
+    else:
+        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+        return redirect('home')
+
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+
+        if request.method == 'POST':
+            form = UpdatePasswordForm(current_user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'رمز عبور ویرایش شد')
+                login(request, current_user)
+                return redirect('update_user')
+            else:
+                for error in list(form.errors.values()):
+                    messages.success(request, error)
+                return redirect('update_user')
+
+        else:
+            form = UpdatePasswordForm(current_user)
+            return render(request, 'update_password.html', {'form':form})
     else:
         messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
