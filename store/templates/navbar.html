@@ -10,27 +10,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}"> خانه </a></li>
-                <li class="nav-item"><a class="nav-link"  href="{% url 'search' %}"> جستجو </a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"> درباره ما </a></li>
 
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"> خروج </a></li>
-<!--                    <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}"> حساب کاربری </a></li>-->
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"> خروج </a></li>
+                <!--                    <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}"> حساب کاربری </a></li>-->
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="{% url 'home' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false"> حساب  </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'update_user' %}"> حساب کاربری </a></li>
-                            <li><a class="dropdown-item" href="{% url 'update_info' %}"> اطلاعات کاربری </a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="{% url 'home' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false"> حساب  </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'update_user' %}"> حساب کاربری </a></li>
+                        <li><a class="dropdown-item" href="{% url 'update_info' %}"> اطلاعات کاربری </a></li>
+                    </ul>
+                </li>
 
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"> ورود </a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}"> ثبت نام </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"> ورود </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}"> ثبت نام </a></li>
                 {% endif %}
 
                 <li class="nav-item dropdown">
@@ -49,7 +48,11 @@
                     </ul>
                 </li>
             </ul>
-
+            <form class="d-flex search-nav" role="search" action="{% url 'search' %}" method="POST">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="محصول" name="searched" aria-label="Search" /> <br>
+                <button class="btn  search-btn" type="submit"><i class="bi bi-search"></i></button>
+            </form>
             <!-- <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>

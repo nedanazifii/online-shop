@@ -106,6 +106,19 @@ a.navbar-brand img {
     font-size: 0.8rem;
 }
 
+.search-nav .search-btn {
+    position: relative;
+    left: 42px;
+    border-radius: 0;
+    border-start-end-radius: 5px;
+    border-end-end-radius: 5px;
+    background-color: var(--primary);
+}
+
+.search-btn i {
+    color: var(--secondary);
+}
+
 
 /* End navbar */
 
@@ -167,7 +180,7 @@ section.product-slider {
 .products-header a {
     font-size: 17px;
     color: black;
-    transition: color 0.5s ease;
+    transition: color 0.3s ease;
 }
 
 .products-header a:hover {

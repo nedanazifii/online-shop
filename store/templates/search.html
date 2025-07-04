@@ -3,33 +3,12 @@
 {% load humanize %}
 
 {% block content %}
-     <header class="bg-dark py-5">
-         <div class="container px-4 px-lg-5 my-5">
-             <div class="text-center text-white">
-                 <h1 class="display-4 fw-bolder"> جستجوی محصول </h1>
-                 <p class="lead fw-normal text-white-50 mb-0"> داستان ما را بشنوید </p>
-             </div>
-         </div>
-     </header>
 
 <br><br>
     <div class="container">
         <div class="row">
             <center>
-                <div class="col-8">
-                    <div class="card">
-                          <div class="card-header">
-                            جستجو
-                          </div>
-                          <div class="card-body">
-                              <form action="{% url 'search' %}" method="POST">
-                                  {% csrf_token %}
-                            <input type="text" class="form-control" placeholder=" محصول" name="searched">
-                              <br>
-                            <button type="submit" class="btn btn-primary"> جستحو </button>
-                              </form>
-                          </div>
-                        </div>
+                <div class="col-12">
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% if searched %}
                         {% for item in searched %}
