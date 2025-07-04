@@ -14,6 +14,7 @@
 
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"> خروج </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}"> حساب کاربری </a></li>
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"> ورود </a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}"> ثبت نام </a></li>

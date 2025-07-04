@@ -5,12 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm
 
 
 def product_list(request):
     all_products = Product.objects.all()[:6]
     return render(request, 'index.html', {'products': all_products})
+
 
 def all_product_list(request):
     all_products = Product.objects.all()
@@ -63,6 +64,22 @@ def signup_user(request):
 
     else:
         return render(request, 'signup.html', {'form': form})
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+        if user_form.is_valid():
+            user_form.save()
+            login(request, current_user)
+            messages.success(request, 'اطلاعات ویرایش شد')
+            return redirect('home')
+
+        return render(request, 'update_user.html', {'user_form':user_form})
+    else:
+        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+        return redirect('home')
 
 
 def product_detail(request, product_id):
