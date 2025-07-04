@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UpdateUserInfo
+from django.db.models import Q
 
 
 def product_list(request):
@@ -138,3 +139,18 @@ def category(request, category_name):
     except:
         messages.success(request, "دسته بندی وجود ندارد", 'success')
         return redirect('home')
+
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+
+        if not searched:
+            messages.success(request, "محصولی وجود ندارد", 'success')
+            return render(request, 'search.html')
+        else:
+            return render(request, 'search.html', {'searched': searched})
+
+    return render(request, 'search.html')
+

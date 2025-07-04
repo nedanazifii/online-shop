@@ -10,6 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}"> خانه </a></li>
+                <li class="nav-item"><a class="nav-link"  href="{% url 'search' %}"> جستجو </a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"> درباره ما </a></li>
 
                 {% if user.is_authenticated %}
