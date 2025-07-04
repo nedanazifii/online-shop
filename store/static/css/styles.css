@@ -92,15 +92,16 @@ a.navbar-brand img {
 
 .btn-cart:hover {
     background-color: #ff6600;
-    color: #fff;
+    color: var(--secondary);
     border-color: var(--secondary);
 }
 
 .cart-badge {
     background-color: #ff6600;
-    color: #fff;
+    color: var(--secondary);
     margin-left: 8px;
     border-radius: 50px;
+    border: 2px solid var(--secondary);
     padding: 0.2rem 0.5rem;
     font-size: 0.8rem;
 }
@@ -162,6 +163,16 @@ section.product-slider {
 
 
 /* product */
+
+.products-header a {
+    font-size: 17px;
+    color: black;
+    transition: color 0.5s ease;
+}
+
+.products-header a:hover {
+    color: var(--primary);
+}
 
 .pro-item .card {
     background-color: var(--wd-prod-bg, var(--bgcolor-white));
