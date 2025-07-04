@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category
+from .models import Product, Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm
+from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UpdateUserInfo
 
 
 def product_list(request):
@@ -57,7 +57,7 @@ def signup_user(request):
             user = authenticate(request, username=username, password=password1)
             login(request, user)
             messages.success(request, "حساب کاربری شما ساخته شد", 'success')
-            return redirect('home')
+            return redirect('update_info')
         else:
             messages.warning(request, 'مشکلی در ثبت نام وجود دارد', 'warning')
             return redirect('signup')
@@ -100,10 +100,27 @@ def update_password(request):
 
         else:
             form = UpdatePasswordForm(current_user)
-            return render(request, 'update_password.html', {'form':form})
+            return render(request, 'update_password.html', {'form': form})
     else:
         messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
+
+
+def update_info(request):
+    if request.user.is_authenticated:
+        # current_user = Profile.objects.get(user__id=request.user.id)
+        current_user, created = Profile.objects.get_or_create(user=request.user)
+        form = UpdateUserInfo(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'اطلاعات کاربری ویرایش شد')
+            return redirect('home')
+
+        return render(request, 'update_info.html', {'form': form})
+    else:
+        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+        return redirect('home')
+
 
 
 def product_detail(request, product_id):
