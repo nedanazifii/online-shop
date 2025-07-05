@@ -25,28 +25,38 @@ def about(request):
     return render(request, 'about.html')
 
 
+from django.contrib import messages
+
 def login_user(request):
+    form_errors = {}
+
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '').strip()
 
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
+        if not username:
+            form_errors['username'] = 'لطفاً نام کاربری را وارد کنید.'
+        if not password:
+            form_errors['password'] = 'لطفاً رمز عبور را وارد کنید.'
 
-            current_user = Profile.objects.get(user__id=request.user.id)
-            saved_cart = current_user.old_cart
-            if saved_cart:
-                converted_cart = json.loads(saved_cart)
-                cart = Cart(request)
-                for key, value in converted_cart.items():
-                    cart.db_add(product=key, quantity=value)
+        if not form_errors:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                current_user = Profile.objects.get(user__id=request.user.id)
+                saved_cart = current_user.old_cart
+                if saved_cart:
+                    converted_cart = json.loads(saved_cart)
+                    cart = Cart(request)
+                    for key, value in converted_cart.items():
+                        cart.db_add(product=key, quantity=value)
 
-            messages.success(request, "با موفقیت وارد شدید", 'success')
-            return redirect('home')
-        else:
-            messages.warning(request, "نام یا رمز اشتباه", 'warning')
-            return redirect('login')
+                messages.success(request, "با موفقیت وارد شدید", 'success')
+                return redirect('home')
+            else:
+                form_errors['password'] = 'نام کاربری یا رمز عبور اشتباه است.'
+
+        return render(request, 'login.html', {'form_errors': form_errors})
 
     else:
         return render(request, 'login.html')
