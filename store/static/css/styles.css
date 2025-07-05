@@ -543,5 +543,11 @@ input::placeholder {
     background-color: #e65c00;
 }
 
+@media (max-width:992px) {
+    .payment-container {
+        margin-top: 5%;
+    }
+}
+
 
 /* End cart */

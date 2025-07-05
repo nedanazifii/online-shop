@@ -4,9 +4,9 @@
 
 {% block content %}
 <br>
-<div class="container">
+<div class="container cart-container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-xl-8 col-lg-7 col-sd-12">
       {% if cart_products %}
         {% for product in cart_products %}
           <div class="card product-card mb-5">
@@ -68,7 +68,7 @@
     </div>
     
     {% if cart_products %}
-        <div class="col-md-4">
+        <div class="col-xl-4 col-lg-5 col-sd-6 payment-container">
           <div class="payment-box">
             <h5 class="payment-title">
               <i class="bi bi-credit-card"></i> اطلاعات پرداخت
