@@ -5,11 +5,11 @@
 {% block content %}
 <br>
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-md-8">
       {% if cart_products %}
         {% for product in cart_products %}
-          <div class="card product-card mb-3">
+          <div class="card product-card mb-5">
             <div class="row g-0">
               <div class="col-md-3">
                 <img src="{{ product.picture.url }}" class="img-fluid rounded-start" alt="...">
@@ -54,31 +54,35 @@
           </div>
         {% endfor %}
 
-      {% else %}
-        <center>
-          <h3 class="container">سبد خرید شما خالیست!!</h3><br>
-        </center>
+        {% else %}
+        <div class="text-center my-5" style="font-size: 1.3rem; color: #555;">
+          <img src="{% static 'assets/empty-card.png '%}" alt="empty-card" style="width:200px; height: 180px;">
+          <h4>سبد خرید شما خالی است.</h4>
+          <h6>لطفاً محصولات مورد نظرتان را به سبد خرید اضافه کنید.</h6>
+        </div>
       {% endif %}
 
       <div class="text-center">
-        <a href="{% url 'home' %}" class="btn btn-secondary">بازگشت به صفحه اصلی</a>
+        <a href="{% url 'home' %}" class="back-btn">بازگشت به فروشگاه</a>
       </div>
     </div>
     
-    <div class="col-md-4">
-      <div class="payment-box">
-        <h5 class="payment-title">
-          <i class="bi bi-credit-card"></i> اطلاعات پرداخت
-        </h5>
-    
-        <div class="payment-row">
-          <span class="label">مبلغ قابل پرداخت:</span>
-          <span class="amount">{{ total|intcomma }} <span class="unit">تومان</span></span>
+    {% if cart_products %}
+        <div class="col-md-4">
+          <div class="payment-box">
+            <h5 class="payment-title">
+              <i class="bi bi-credit-card"></i> اطلاعات پرداخت
+            </h5>
+        
+            <div class="payment-row">
+              <span class="label">مبلغ قابل پرداخت:</span>
+              <span class="amount">{{ total|intcomma }} <span class="unit">تومان</span></span>
+            </div>
+        
+            <button class="btn payment-btn">ادامه به پرداخت</button>
+          </div>
         </div>
-    
-        <button class="btn payment-btn">ادامه به پرداخت</button>
-      </div>
-    </div>
+    {% endif %}
     
     
 

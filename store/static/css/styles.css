@@ -515,7 +515,7 @@ input::placeholder {
 }
 
 .payment-btn {
-    background-color: #ff6600;
+    background-color: var(--primary);
     color: white;
     width: 100%;
     font-weight: bold;
@@ -526,6 +526,20 @@ input::placeholder {
 }
 
 .payment-btn:hover {
+    background-color: #e65c00;
+}
+
+.back-btn {
+    border-radius: 5px;
+    background-color: var(--primary);
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    outline: none;
+    font-size: 14px;
+}
+
+.back-btn:hover {
     background-color: #e65c00;
 }
 
