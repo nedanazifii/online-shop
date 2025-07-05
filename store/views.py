@@ -69,7 +69,6 @@ def logout_user(request):
 
 
 def signup_user(request):
-    form = SignUpForm()
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -82,10 +81,11 @@ def signup_user(request):
             return redirect('update_info')
         else:
             messages.warning(request, 'مشکلی در ثبت نام وجود دارد', 'warning')
-            return redirect('signup')
-
+            return render(request, 'signup.html', {'form': form})
     else:
-        return render(request, 'signup.html', {'form': form})
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
 
 
 def update_user(request):

@@ -1,22 +1,112 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <center>
-                <div class="col-8">
-                    <p align="justify">
-                        <form method="post" action="{% url 'signup' %}" class="signup-form">
-                              {% csrf_token %}
-                                    <h3 style="font-size: 30px">ثبت نام</h3>
-                                    {{ form.as_p }}
-                                    <!-- <br><br> -->
-                              <button type="submit" class="btn btn-secondary">ثبت نام</button>
-                        </form>
-                    </p>
+<br><br>
+<div class="container signup-form">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <h3 style="font-size: 30px; margin-bottom: 20px;">ثبت نام</h3>
+
+                <!-- نام -->
+                <div class="mb-3">
+                    <input 
+                        type="text"
+                        name="first_name"
+                        class="form-control {% if form.first_name.errors %}is-invalid{% endif %}"
+                        placeholder="نام خود را وارد کنید"
+                        value="{{ form.first_name.value|default:'' }}"
+                    >
+                    {% if form.first_name.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ form.first_name.errors.0 }}
+                        </div>
+                    {% endif %}
                 </div>
-            </center>
+
+                <!-- نام خانوادگی -->
+                <div class="mb-3">
+                    <input 
+                        type="text"
+                        name="last_name"
+                        class="form-control {% if form.last_name.errors %}is-invalid{% endif %}"
+                        placeholder="نام خانوادگی خود را وارد کنید"
+                        value="{{ form.last_name.value|default:'' }}"
+                    >
+                    {% if form.last_name.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ form.last_name.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- نام کاربری -->
+                <div class="mb-3">
+                    <input 
+                        type="text"
+                        name="username"
+                        class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                        placeholder="نام کاربری"
+                        value="{{ form.username.value|default:'' }}"
+                    >
+                    {% if form.username.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ form.username.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- ایمیل -->
+                <div class="mb-3">
+                    <input 
+                        type="email"
+                        name="email"
+                        class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                        placeholder="ایمیل"
+                        value="{{ form.email.value|default:'' }}"
+                    >
+                    {% if form.email.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ form.email.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- رمز عبور -->
+                <div class="mb-3">
+                    <input 
+                        type="password"
+                        name="password1"
+                        class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
+                        placeholder="رمز عبور"
+                    >
+                    {% if form.password1.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ form.password1.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- تکرار رمز عبور -->
+                <div class="mb-3">
+                    <input 
+                        type="password"
+                        name="password2"
+                        class="form-control {% if form.password2.errors %}is-invalid{% endif %}"
+                        placeholder="تکرار رمز عبور"
+                    >
+                    {% if form.password2.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ form.password2.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-secondary w-100">ثبت نام</button>
+            </form>
         </div>
     </div>
+</div>
 <br><br>
 {% endblock %}

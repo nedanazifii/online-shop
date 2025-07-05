@@ -12,24 +12,40 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
         label='',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خود را وارد کنید'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خود را وارد کنید'}),
+                error_messages={
+            'required': 'لطفاً نام خود را وارد کنید.',
+            'max_length': 'نام نباید بیش از ۲۰ کاراکتر باشد.'
+        }
     )
 
     last_name = forms.CharField(
         label='',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}),
+        error_messages={
+            'required': 'لطفاً نام خانوادگی خود را وارد کنید.',
+            'max_length': 'نام خانوادگی نباید بیش از ۲۰ کاراکتر باشد.'
+        }
     )
 
     email = forms.EmailField(
         label='',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ایمیل خود را وارد کنید'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ایمیل خود را وارد کنید'}),
+        error_messages={
+        'required': 'لطفاً ایمیل خود را وارد کنید.',
+        'invalid': 'لطفاً یک ایمیل معتبر وارد کنید.'
+    }
     )
 
     username = forms.CharField(
         label='',
         max_length=20,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کاربری '})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کاربری '}),
+        error_messages={
+            'required': 'لطفاً نام کاربری را وارد کنید.',
+            'max_length': 'نام کاربری نباید بیش از ۲۰ کاراکتر باشد.'
+        }
     )
 
     password1 = forms.CharField(
@@ -42,7 +58,10 @@ class SignUpForm(UserCreationForm):
                 'placeholder': 'رمز عبور'
 
             }
-        )
+        ),
+        error_messages={
+            'required': 'لطفاً رمز عبور را وارد کنید.'
+        }
     )
 
     password2 = forms.CharField(
@@ -54,7 +73,10 @@ class SignUpForm(UserCreationForm):
                 'type': 'password',
                 'placeholder': 'تکرار رمز عبور'
             }
-        )
+        ),
+        error_messages={
+           'required': 'لطفاً تکرار رمز عبور را وارد کنید.'
+        }
     )
 
     class Meta:
@@ -80,7 +102,7 @@ class UpdateUserForm(UserChangeForm):
         label='',
         max_length=50,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}),
-        required=False
+        required=False  
     )
 
     email = forms.EmailField(
