@@ -52,6 +52,12 @@ a {
 
 /* navbar */
 
+@media (max-width:1200px) {
+    .navbar .container {
+        padding: 0 !important;
+    }
+}
+
 .nav-item {
     padding: 5px 8px;
 }
