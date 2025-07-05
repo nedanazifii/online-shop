@@ -2,135 +2,126 @@
 {% load static %}
 {% load humanize %}
 
-{%  block content %}
-    <br>
-    {% if cart_products %}
+{% block content %}
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% if cart_products %}
         {% for product in cart_products %}
-            <div class="container">
-                    <div class="card mb-3" >
-                      <div class="row g-0">
-                        <div class="col-md-4">
-                          <img src="{{ product.picture.url }}" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                          <div class="card-body">
-                            <h4 class="card-title">{{ product.name }}</h4><br>
-                              <h6>توضیحات محصول: </h6>
-                            <p class="card-text">{{ product.description }}</p>
+          <div class="card product-card mb-3">
+            <div class="row g-0">
+              <div class="col-md-3">
+                <img src="{{ product.picture.url }}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h4 class="card-title">{{ product.name }}</h4><br>
+                  <h6>توضیحات محصول: </h6>
+                  <p class="card-text">{{ product.description }}</p>
 
-                              {% if product.is_sale%}
-                              <p class="card-text">
-                                  قیمت:<strike>{{ product.price |intcomma }}</strike><br>
-                                  {{ product.sale_price |intcomma }}
-                              </p>
-                              {% else %}
-                                <p class="card-text">قیمت:{{ product.price |intcomma }}</p>
-                              {% endif %}
-                              <br>
+                  {% if product.is_sale %}
+                  <p class="card-text">
+                    قیمت: <strike>{{ product.price|intcomma }}</strike><br>
+                    {{ product.sale_price|intcomma }}
+                  </p>
+                  {% else %}
+                  <p class="card-text">قیمت: {{ product.price|intcomma }}</p>
+                  {% endif %}
+                  <br>
 
-
-                              <p class="card-text">تعداد:
-                                <select class="form-select" id="select{{product.id}}">
-                                      {% for key,value in quantities.items %}
-                                        {% if key == product.id|slugify %}
-                                            <option selected>{{ value }}</option>
-                                        {% endif %}
-                                      {% endfor %}
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                </select>
-                               </p>
-
-                              <br>
-                              <button type="button" data-index={{product.id}}
-                                      class="btn btn-primary update-cart" >ویرایش
-                              </button>
-
-                              <button type="button" data-index={{product.id}}
-                                      class="btn btn-danger delete-product" >حذف
-                              </button>
-
-    <!--                          <a href="{% url 'home' %}" class="btn btn-secondary"> بازگشت به صفحه اصلی</a>-->
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <p class="card-text d-flex align-items-center" style="gap: 8px;">
+                    <span>تعداد:</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      style="width: 80px;"
+                      id="select{{ product.id }}"
+                      min="1"
+                      max="10"
+                      value="{% for key, value in quantities.items %}
+                               {% if key == product.id|slugify %}
+                                 {{ value }}
+                               {% endif %}
+                             {% endfor %}">
+                  </p>
+                  
+                  <button type="button" data-index={{ product.id }} class="btn btn-primary update-cart">ویرایش</button>
+                  <button type="button" data-index={{ product.id }} class="btn btn-danger delete-product">حذف</button>
                 </div>
-            {% endfor %}
-            <br>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      {% else %}
         <center>
-            <h4>مجموع کل سفارشات : {{total|intcomma}}</h4>
-        </center><br><br>
-        {% else %}
-        <center>
-            <h3 class="container">سبد خرید شما خالیست!!</h3><br>
+          <h3 class="container">سبد خرید شما خالیست!!</h3><br>
         </center>
+      {% endif %}
 
-        {% endif %}
-
-        <div class="text-center">
-            <a href="{% url 'home' %}" class="btn btn-secondary">بازگشت به صفحه اصلی</a>
+      <div class="text-center">
+        <a href="{% url 'home' %}" class="btn btn-secondary">بازگشت به صفحه اصلی</a>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="payment-box">
+        <h5 class="payment-title">
+          <i class="bi bi-credit-card"></i> اطلاعات پرداخت
+        </h5>
+    
+        <div class="payment-row">
+          <span class="label">مبلغ قابل پرداخت:</span>
+          <span class="amount">{{ total|intcomma }} <span class="unit">تومان</span></span>
         </div>
+    
+        <button class="btn payment-btn">ادامه به پرداخت</button>
+      </div>
+    </div>
+    
+    
 
-
-    <!--End Header-->
+  </div>
+</div>
 
 <br><br><br><br><br>
 
-
 <script>
-        $(document).on('click', '.update-cart', function(e){
-        e.preventDefault();
+  $(document).on('click', '.update-cart', function(e) {
+    e.preventDefault();
+    var productid = $(this).data('index');
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_update' %}",
+      data: {
+        product_id: productid,
+        product_qty: $('#select' + productid).val(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+        location.reload();
+      },
+      error: function(xhr, errmsg, err) {}
+    });
+  });
 
-        var productid = $(this).data('index')
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'cart_update' %}",
-            data:{
-                product_id: $(this).data('index'),
-                product_qty : $('#select'+productid+' option:selected').text(),
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                action : 'post'
-            },
-            success: function(json){
-<!--                document.getElementById('cart_quantity').textContent = json.qty-->
-                    location.reload();
-            },
-            error:function(xhr, errmsg, err){
-            }
-        })
-        })
-
-
-
-
-
-    $(document).on('click', '.delete-product', function(e){
-        e.preventDefault();
-
-
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'cart_delete' %}",
-            data:{
-                product_id: $(this).data('index'),
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                action : 'post'
-            },
-            success: function(json){
-                    location.reload();
-            },
-            error:function(xhr, errmsg, err){
-            }
-        })
-        })
-
-
-
+  $(document).on('click', '.delete-product', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_delete' %}",
+      data: {
+        product_id: $(this).data('index'),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+        location.reload();
+      },
+      error: function(xhr, errmsg, err) {}
+    });
+  });
 </script>
-
-
 {% endblock %}
