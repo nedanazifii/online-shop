@@ -32,3 +32,14 @@ $(".category-slider").slick({
     ]
 
 });
+
+
+// alert-message
+
+setTimeout(function() {
+    const flashMessages = document.querySelectorAll('.flash-message');
+    flashMessages.forEach(function(flash) {
+        const bsAlert = bootstrap.Alert.getOrCreateInstance(flash);
+        bsAlert.close();
+    });
+}, 2000);
