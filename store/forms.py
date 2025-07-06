@@ -11,7 +11,7 @@ class SignUpForm(UserCreationForm):
 
     first_name = forms.CharField(
         label='',
-        max_length=50,
+        max_length=20,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خود را وارد کنید'}),
         error_messages={
             'required': 'لطفاً نام خود را وارد کنید.',
@@ -21,7 +21,7 @@ class SignUpForm(UserCreationForm):
 
     last_name = forms.CharField(
         label='',
-        max_length=50,
+        max_length=20,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}),
         error_messages={
             'required': 'لطفاً نام خانوادگی خود را وارد کنید.',
@@ -33,9 +33,9 @@ class SignUpForm(UserCreationForm):
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ایمیل خود را وارد کنید'}),
         error_messages={
-        'required': 'لطفاً ایمیل خود را وارد کنید.',
-        'invalid': 'لطفاً یک ایمیل معتبر وارد کنید.'
-    }
+            'required': 'لطفاً ایمیل خود را وارد کنید.',
+            'invalid': 'لطفاً یک ایمیل معتبر وارد کنید.'
+        }
     )
 
     username = forms.CharField(
@@ -75,9 +75,35 @@ class SignUpForm(UserCreationForm):
             }
         ),
         error_messages={
-           'required': 'لطفاً تکرار رمز عبور را وارد کنید.'
+            'required': 'لطفاً تکرار رمز عبور را وارد کنید.'
         }
     )
+
+    def clean_password1(self):
+        password = self.cleaned_data.get('password1')
+
+        if not password:
+            raise forms.ValidationError('لطفا رمز عبور را وارد کنید.')
+
+        if len(password) < 8:
+            raise forms.ValidationError('رمز عبور باید حداقل ۸ کاراکتر باشد.')
+
+        if not any(char.isdigit() for char in password):
+            raise forms.ValidationError('رمز عبور باید شامل حداقل یک عدد باشد.')
+
+        if not any(char.isalpha() for char in password):
+            raise forms.ValidationError('رمز عبور باید شامل حداقل یک حرف باشد.')
+
+        return password
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("رمزهای عبور مطابقت ندارند.")
+
+        return password2
 
     class Meta:
         model = User
@@ -102,7 +128,7 @@ class UpdateUserForm(UserChangeForm):
         label='',
         max_length=50,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}),
-        required=False  
+        required=False
     )
 
     email = forms.EmailField(
@@ -158,7 +184,7 @@ class UpdateUserInfo(forms.ModelForm):
     phone = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شماره تلفن'}),
-        required = False
+        required=False
     )
     address1 = forms.CharField(
         label='',
@@ -190,6 +216,7 @@ class UpdateUserInfo(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کشور'}),
         required=False
     )
+
     class Meta:
         model = Profile
-        fields = ('phone', 'address1', 'address2','city', 'state', 'zipcode', 'country')
+        fields = ('phone', 'address1', 'address2', 'city', 'state', 'zipcode', 'country')

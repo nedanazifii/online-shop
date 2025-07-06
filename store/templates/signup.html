@@ -5,7 +5,15 @@
 <div class="container signup-form">
     <div class="row justify-content-center">
         <div class="col-8">
-            <form method="post" action="{% url 'signup' %}">
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'signup' %}" novalidate>
                 {% csrf_token %}
                 <h3 style="font-size: 30px; margin-bottom: 20px;">ثبت نام</h3>
 
@@ -75,7 +83,7 @@
 
                 <!-- رمز عبور -->
                 <div class="mb-3">
-                    <input 
+                    <input
                         type="password"
                         name="password1"
                         class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
@@ -90,7 +98,7 @@
 
                 <!-- تکرار رمز عبور -->
                 <div class="mb-3">
-                    <input 
+                    <input
                         type="password"
                         name="password2"
                         class="form-control {% if form.password2.errors %}is-invalid{% endif %}"

@@ -5,7 +5,7 @@
 <div class="container login-form ">
     <div class="row justify-content-center">
         <div class="col-8">
-            <form method="post" action="{% url 'login' %}">
+            <form method="post" action="{% url 'login' %}" novalidate>
                 {% csrf_token %}
                 <h3 style="font-size: 30px">ورود</h3>
 
