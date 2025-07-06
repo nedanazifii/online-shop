@@ -57,15 +57,11 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-
-class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    address = models.CharField(max_length=400, default='', blank=False)
-    phone = models.CharField(max_length=20, blank=True)
-    date = models.DateTimeField(default=datetime.datetime.today())
-    status = models.BooleanField(default=False)
+class ProductFeature(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='features')
+    title = models.CharField(max_length=100)
+    value = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
-        return self.product
+        return f"{self.title}: {self.value}"
+

@@ -13,6 +13,7 @@ from payment.forms import ShippingForm
 from payment.models import ShippingAddress
 
 
+
 def product_list(request):
     all_products = Product.objects.all()[:6]
     return render(request, 'index.html', {'products': all_products})
@@ -27,7 +28,7 @@ def about(request):
     return render(request, 'about.html')
 
 
-from django.contrib import messages
+
 
 def login_user(request):
     form_errors = {}

@@ -14,6 +14,17 @@
                   <div class="card-body">
                     <h4 class="card-title">{{ product.name }}</h4><br>
                       <h6>توضیحات محصول: </h6>
+                      {{ product.description }}
+                      <br>
+                      <h6>ویژگی‌های محصول:</h6>
+                            <ul>
+                                {% for feature in product.features.all %}
+                                    <li><strong>{{ feature.title }}:</strong> {{ feature.value }}</li>
+                                {% empty %}
+                                    <li>ویژگی‌ای ثبت نشده است.</li>
+                                {% endfor %}
+                            </ul>
+
                     <p class="card-text">{{ product.description }}</p>
 
                       {% if product.is_sale%}
