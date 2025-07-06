@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django import forms
 from .models import Profile
+import re
 
 
 class SignUpForm(UserCreationForm):
@@ -104,6 +105,30 @@ class SignUpForm(UserCreationForm):
             raise forms.ValidationError("رمزهای عبور مطابقت ندارند.")
 
         return password2
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('این نام کاربری قبلاً ثبت شده است. لطفاً نام دیگری انتخاب کنید.')
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('این ایمیل قبلاً ثبت شده است. لطفاً ایمیل دیگری وارد کنید.')
+        return email
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if not re.match(r'^[آ-یa-zA-Z\s]+$', first_name):
+            raise forms.ValidationError('نام فقط باید شامل حروف باشد.')
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if not re.match(r'^[آ-یa-zA-Z\s]+$', last_name):
+            raise forms.ValidationError('نام خانوادگی فقط باید شامل حروف باشد.')
+        return last_name
 
     class Meta:
         model = User
@@ -352,7 +377,6 @@ class UpdateUserInfo(forms.ModelForm):
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
         if phone:
-            import re
             pattern = r'^\+?[\d\s-]{7,15}$'
             if not re.match(pattern, phone):
                 raise forms.ValidationError('شماره تلفن معتبر نیست.')
