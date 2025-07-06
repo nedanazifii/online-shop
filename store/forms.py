@@ -333,7 +333,7 @@ class UpdatePasswordForm(SetPasswordForm):
 #     class Meta:
 #         model = Profile
 #         fields = ('phone', 'address1', 'address2', 'city', 'state', 'zipcode', 'country')
-class UpdateUserInfo(forms.ModelForm):
+class UpdateUserInfoForm(forms.ModelForm):
     phone = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شماره تلفن'}),
