@@ -23,7 +23,7 @@ class Customer(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date_modified = models.DateTimeField(User, auto_now=True)
+    date_modified = models.DateTimeField(auto_now=True)
     phone = models.CharField(max_length=25,blank=True)
     address1 = models.CharField(max_length=400,blank=True)
     address2 = models.CharField(max_length=400,blank=True)
