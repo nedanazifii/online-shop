@@ -50,6 +50,28 @@
       </div>
     </div>
 
+    <div id="add-to-cart-popup" class="popup" style="display: none;">
+      <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <h5>کالا به سبد خرید اضافه شد</h5>
+        <div class="popup-body d-flex align-items-center gap-3 my-3">
+          <img id="popup-image" src="{{ product.picture.url }}" alt="product" style="width: 60px; height: auto; border-radius: 8px;" />
+          <div>
+            <p id="popup-name" class="mb-1">{{ product.name }}</p>
+            <p id="popup-price" class="text-muted small mb-0">
+              {% if product.is_sale %}
+                {{ product.sale_price|intcomma }} تومان
+              {% else %}
+                {{ product.price|intcomma }} تومان
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        <a href="{% url 'cart_summery' %}" class="btn btn-primary btn-sm w-100">مشاهده سبد خرید</a>
+      </div>
+    </div>
+
+
     <script>
       $(document).on('click', '#add-cart', function(e){
         e.preventDefault();
@@ -64,12 +86,17 @@
           },
           success: function(json){
             document.getElementById('cart_quantity').textContent = json.qty;
-            location.reload();
+            $('#add-to-cart-popup').fadeIn();
           },
           error: function(xhr, errmsg, err){
-           
+            
           }
         });
       });
+    
+      $(document).on('click', '.close-popup', function () {
+        $('#add-to-cart-popup').fadeOut();
+      });
     </script>
+    
 {% endblock %}

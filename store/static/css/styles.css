@@ -557,7 +557,7 @@ input::placeholder {
 .card-text select.form-select {
     background-color: #fff;
     border: 2px solid var(--primary);
-    color: var(--primary);
+    color: black;
     font-weight: 600;
     padding: 6px 30px;
     border-radius: 8px;
@@ -667,6 +667,109 @@ ul {
     font-weight: 500;
     line-height: 1.5;
     list-style: none;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px 25px;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: popup-animation 0.3s ease-out;
+}
+
+@keyframes popup-animation {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.popup-content h5 {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.popup-body {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.popup-body img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.popup-body p {
+    margin: 0;
+    line-height: 1.4;
+    color: #333;
+}
+
+.popup-body .text-muted {
+    color: #888 !important;
+    font-size: 14px;
+}
+
+.popup a.btn {
+    background-color: #ff6600;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.popup a.btn:hover {
+    background-color: #e65c00;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-popup:hover {
+    color: #ff6600;
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        margin: 0 15px;
+        width: auto;
+    }
 }
 
 
