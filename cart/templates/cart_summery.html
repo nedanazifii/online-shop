@@ -29,22 +29,19 @@
                   <p class="card-text">قیمت: {{ product.price|intcomma }}</p>
                   {% endif %}
                   <br>
-
-                  <p class="card-text d-flex align-items-center" style="gap: 8px;">
-                    <span>تعداد:</span>
-                    <input
-                      type="number"
-                      class="form-control"
-                      style="width: 80px;"
-                      id="select{{ product.id }}"
-                      min="1"
-                      max="10"
-                      value="{% for key, value in quantities.items %}
-                               {% if key == product.id|slugify %}
-                                 {{ value }}
-                               {% endif %}
-                             {% endfor %}">
-                  </p>
+                  <p class="card-text">تعداد:
+                    <select class="form-select" id="select{{product.id}}">
+                          {% for key,value in quantities.items %}
+                            {% if key == product.id|slugify %}
+                                <option selected>{{ value }}</option>
+                            {% endif %}
+                          {% endfor %}
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                   </p>
                   
                   <button type="button" data-index={{ product.id }} class="btn btn-primary update-cart">ویرایش</button>
                   <button type="button" data-index={{ product.id }} class="btn btn-danger delete-product">حذف</button>
