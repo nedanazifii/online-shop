@@ -92,43 +92,43 @@ def signup_user(request):
 
 
 def update_user(request):
-    if request.user.is_authenticated:
-        current_user = User.objects.get(id=request.user.id)
-        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+    if not request.user.is_authenticated:
+        messages.warning(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+        return redirect('home')
+
+    current_user = request.user  
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=current_user)
         if user_form.is_valid():
             user_form.save()
-            login(request, current_user)
+            login(request, current_user) 
             messages.success(request, 'اطلاعات ویرایش شد')
             return redirect('home')
-
-        return render(request, 'update_user.html', {'user_form': user_form})
     else:
-        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
-        return redirect('home')
+        user_form = UpdateUserForm(instance=current_user)
 
+    return render(request, 'update_user.html', {'user_form': user_form})
 
 def update_password(request):
-    if request.user.is_authenticated:
-        current_user = request.user
-
-        if request.method == 'POST':
-            form = UpdatePasswordForm(current_user, request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'رمز عبور ویرایش شد')
-                login(request, current_user)
-                return redirect('update_user')
-            else:
-                for error in list(form.errors.values()):
-                    messages.success(request, error)
-                return redirect('update_user')
-
-        else:
-            form = UpdatePasswordForm(current_user)
-            return render(request, 'update_password.html', {'form': form})
-    else:
-        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+    if not request.user.is_authenticated:
+        messages.warning(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
+
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = UpdatePasswordForm(current_user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'رمز عبور ویرایش شد')
+            login(request, current_user)
+            return redirect('update_user')
+        else:
+            return render(request, 'update_password.html', {'form': form})
+
+    else:
+        form = UpdatePasswordForm(current_user)
+        return render(request, 'update_password.html', {'form': form})
 
 
 def update_info(request):

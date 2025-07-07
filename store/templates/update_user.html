@@ -1,24 +1,72 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <center>
-                <div class="col-8">
-                    <p align="justify">
-                        <form method="post" action="{% url 'update_user' %}" class="signup-form">
-                              {% csrf_token %}
-                                    <h3 style="font-size: 30px">ویرایش حساب</h3>
-                                    {{ user_form.as_p }}
-                                    <!-- <br><br> -->
-                              <button type="submit" class="btn btn-secondary">ویرایش</button>
-                        </form>
-                        <br>
-                        <a href="{% url 'update_password' %}" class="btn btn-warning"> ویرایش رمز </a>
-                    </p>
+<div class="container update-user login-form" >
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form method="post" action="{% url 'update_user' %}" novalidate >
+                {% csrf_token %}
+                <h3 style="font-size: 30px">ویرایش حساب</h3>
+
+                <div class="mb-3">
+                    <input 
+                      type="text" name="username" placeholder="نام کاربری" 
+                      class="form-control {% if user_form.errors.username %}is-invalid{% endif %}" 
+                      value="{{ user_form.username.value|default:'' }}">
+                    {% if user_form.errors.username %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ user_form.errors.username|striptags }}
+                        </div>
+                    {% endif %}
                 </div>
-            </center>
+
+                <div class="mb-3">
+                    <input 
+                      type="email" name="email" placeholder="ایمیل" 
+                      class="form-control {% if user_form.errors.email %}is-invalid{% endif %}" 
+                      value="{{ user_form.email.value|default:'' }}">
+                    {% if user_form.errors.email %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ user_form.errors.email|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <input 
+                      type="text" name="first_name" placeholder="نام" 
+                      class="form-control {% if user_form.errors.first_name %}is-invalid{% endif %}" 
+                      value="{{ user_form.first_name.value|default:'' }}">
+                    {% if user_form.errors.first_name %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ user_form.errors.first_name|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <input 
+                      type="text" name="last_name" placeholder="نام خانوادگی" 
+                      class="form-control {% if user_form.errors.last_name %}is-invalid{% endif %}" 
+                      value="{{ user_form.last_name.value|default:'' }}">
+                    {% if user_form.errors.last_name %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ user_form.errors.last_name|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-secondary">ویرایش</button>
+                </div>
+            </form>
+
+            <br>    
+            <div class="change-pass text-center">
+                <a href="{% url 'update_password' %}" class="btn btn-warning">ویرایش رمز</a>
+            </div>
         </div>
     </div>
+</div>
 <br><br>
 {% endblock %}
