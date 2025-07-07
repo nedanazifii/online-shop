@@ -28,9 +28,8 @@
                   {% else %}
                   <p class="card-text">قیمت: {{ product.price|intcomma }}</p>
                   {% endif %}
-                  <br>
-                  <p class="card-text">تعداد:
-                    <select class="form-select" id="select{{product.id}}">
+                  <p class="card-text d-flex align-items-center gap-2">تعداد:
+                    <select class="form-select  form-select-sm w-auto" id="select{{product.id}}">
                           {% for key,value in quantities.items %}
                             {% if key == product.id|slugify %}
                                 <option selected>{{ value }}</option>
@@ -43,8 +42,8 @@
                     </select>
                    </p>
                   
-                  <button type="button" data-index={{ product.id }} class="btn btn-primary update-cart">ویرایش</button>
-                  <button type="button" data-index={{ product.id }} class="btn btn-danger delete-product">حذف</button>
+                  <!-- <button type="button" data-index={{ product.id }} class="btn btn-primary update-cart">ویرایش</button> -->
+                  <button type="button" data-index={{ product.id }} class="btn delete-product">&times;</button>
                 </div>
               </div>
             </div>
@@ -60,7 +59,7 @@
       {% endif %}
 
       <div class="text-center">
-        <a href="{% url 'home' %}" class="back-btn">بازگشت به فروشگاه</a>
+        <a href="{% url 'products' %}" class="back-btn">بازگشت به فروشگاه</a>
       </div>
     </div>
     
@@ -89,25 +88,6 @@
 <br><br><br><br><br>
 
 <script>
-  $(document).on('click', '.update-cart', function(e) {
-    e.preventDefault();
-    var productid = $(this).data('index');
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'cart_update' %}",
-      data: {
-        product_id: productid,
-        product_qty: $('#select' + productid).val(),
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'post'
-      },
-      success: function(json) {
-        location.reload();
-      },
-      error: function(xhr, errmsg, err) {}
-    });
-  });
-
   $(document).on('click', '.delete-product', function(e) {
     e.preventDefault();
     $.ajax({
@@ -119,10 +99,36 @@
         action: 'post'
       },
       success: function(json) {
-        location.reload();
+        location.reload();  
       },
-      error: function(xhr, errmsg, err) {}
+      error: function(xhr, errmsg, err) {
+        console.log("خطا در حذف محصول:", err);
+      }
+    });
+  });
+
+  $(document).on('change', 'select.form-select', function(e) {
+    e.preventDefault();
+    let selectElement = $(this);
+    let productid = selectElement.attr('id').replace('select', '');
+
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_update' %}",
+      data: {
+        product_id: productid,
+        product_qty: selectElement.val(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+        location.reload();  
+      },
+      error: function(xhr, errmsg, err) {
+        console.log("خطا در بروزرسانی تعداد:", err);
+      }
     });
   });
 </script>
+
 {% endblock %}
