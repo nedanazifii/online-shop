@@ -3,82 +3,73 @@
 
 {% block content %}
 
-    <br><br><br><br><br>
-        <div class="container">
-            <div class="card mb-3" >
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="{{ product.picture.url }}" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h4 class="card-title">{{ product.name }}</h4><br>
-                      <h6>توضیحات محصول: </h6>
-                      {{ product.description }}
-                      <br>
-                      <h6>ویژگی‌های محصول:</h6>
-                            <ul>
-                                {% for feature in product.features.all %}
-                                    <li><strong>{{ feature.title }}:</strong> {{ feature.value }}</li>
-                                {% empty %}
-                                    <li>ویژگی‌ای ثبت نشده است.</li>
-                                {% endfor %}
-                            </ul>
-
-                    <p class="card-text">{{ product.description }}</p>
-
-                      {% if product.is_sale%}
-                      <p class="card-text">
-                          قیمت:<strike>{{ product.price |intcomma }}</strike><br>
-                          {{ product.sale_price |intcomma }}
-                      </p>
-                      {% else %}
-                        <p class="card-text">قیمت:{{ product.price |intcomma }}</p>
-                      {% endif %}
-
-                      <br>
-
-                      <select class="form-select" id="cart-qty">
-                          <option selected>تعداد</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                      </select>
-
-                      <br><br><br>
-
-                      <button class="btn btn-secondary" type="button" value="{{ product.id }}" id="add-cart">افزودن به سبد خرید</button>
-
-                      <a href="{% url 'home' %}" class="btn btn-secondary"> بازگشت به صفحه اصلی</a>
-
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div class="container py-5">
+      <div class="row product-card">
+        <div class="col-md-5 p-3">
+          <img src="{{ product.picture.url }}" class="product-image" alt="{{ product.name }}">
         </div>
-    <br><br><br><br>
+        <div class="col-md-7 p-4">
+          <h1 class="product-title mb-3">{{ product.name }}</h1>
+          <p class="text-muted mb-4">{{ product.description }}</p>
+
+          <h5 class="mb-2">ویژگی‌ها:</h5>
+          <ul class="mb-4">
+            {% for feature in product.features.all %}
+              <li><strong>{{ feature.title }}:</strong> {{ feature.value }}</li>
+            {% empty %}
+              <li>ویژگی‌ای ثبت نشده است.</li>
+            {% endfor %}
+          </ul>
+
+          <div class="mb-4">
+            {% if product.is_sale %}
+              <span class="price-old">{{ product.price|intcomma }} تومان</span>
+              <span class="price-new">{{ product.sale_price|intcomma }} تومان</span>
+            {% else %}
+              <span class="price-new">{{ product.price|intcomma }} تومان</span>
+            {% endif %}
+          </div>
+
+          <div class="mb-4">
+            <label for="cart-qty" class="form-label">تعداد</label>
+            <select class="form-select w-25 d-inline" id="cart-qty">
+              <option selected disabled>انتخاب کنید</option>
+              {% for i in "1234" %}
+                <option value="{{ i }}">{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-buy px-4" type="button" value="{{ product.id }}" id="add-cart">
+              افزودن به سبد خرید
+            </button>
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary">بازگشت به صفحه اصلی</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
-        $(document).on('click', '#add-cart', function(e){
+      $(document).on('click', '#add-cart', function(e){
         e.preventDefault();
         $.ajax({
-            type: 'POST',
-            url: '{% url 'cart_add' %}',
-            data:{
-                product_id: $('#add-cart').val(),
-                product_qty : $('#cart-qty option:selected').text(),
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                action : 'post'
-            },
-            success: function(json){
-                document.getElementById('cart_quantity').textContent = json.qty
-                location.reload();
-            },
-            error:function(xhr, errmsg, err){
-            }
-        })
-        })
-
+          type: 'POST',
+          url: '{% url "cart_add" %}',
+          data:{
+            product_id: $('#add-cart').val(),
+            product_qty : $('#cart-qty option:selected').text(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action : 'post'
+          },
+          success: function(json){
+            document.getElementById('cart_quantity').textContent = json.qty;
+            location.reload();
+          },
+          error: function(xhr, errmsg, err){
+            alert("خطا در افزودن به سبد خرید");
+          }
+        });
+      });
     </script>
-
 {% endblock %}
