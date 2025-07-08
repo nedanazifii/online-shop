@@ -75,7 +75,7 @@
               <span class="amount">{{ total|intcomma }} <span class="unit">تومان</span></span>
             </div>
         
-            <button class="btn payment-btn">اقدام به پرداخت</button>
+            <a class="btn payment-btn" href="{% url 'checkout' %}">اقدام به پرداخت</a>
           </div>
         </div>
     {% endif %}

@@ -134,8 +134,8 @@ def update_password(request):
 def update_info(request):
     if request.user.is_authenticated:
 
-        current_user, created1 = Profile.objects.get_or_create(user=request.user)
-        shipping_user, created2 = ShippingAddress.objects.get_or_create(user=request.user)
+        current_user = Profile.objects.get(user=request.user)
+        shipping_user = ShippingAddress.objects.get(user=request.user)
 
         form = UpdateUserInfoForm(request.POST or None, instance=current_user)
         shipping_form = ShippingForm(request.POST or None, instance=shipping_user)

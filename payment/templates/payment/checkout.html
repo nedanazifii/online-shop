@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <center>
+            <div class="col-10">
+
+                <div class="card">
+                  <div class="card-header">
+                    سفارشات شما
+                  </div>
+                    <br>
+                  <div class="card-body">
+                    {% for product in cart_products %}
+                      <br>{{ product.name }}<br>
+
+                      <small>
+                      قیمت واحد:
+                      {% if product.is_sale %}
+                        {{ product.sale_price|intcomma }}
+                      {% else %}
+                          {{ product.price|intcomma }}
+                      {% endif %}
+                      </small><br>
+
+                      <small>
+                      تعداد:
+                      {% for key,value in quantities.items %}
+                            {% if key == product.id|slugify %}
+                                {{ value }}
+                            {% endif %}
+                      {% endfor %}
+                      </small><br>
+
+                    {% endfor %}
+                      <br>
+                      <strong>
+                          مجموع کل سفارشات:
+                          {{ total|intcomma }}<br>
+                      </strong>
+                  </div>
+                </div>
+                <br>
+                <div class="card">
+                  <div class="card-header">
+                    مشخصات ارسال
+                  </div>
+                  <div class="card-body">
+                    {{ shipping_form.as_p }}
+                  </div>
+                </div>
+            </div>
+            <br>
+            <a href="{% url 'cart_summery' %}" class="btn btn-sm btn-outline-secondary">
+                ویرایش سفارش
+            </a>
+            <a href="" class="btn btn-sm btn-outline-secondary">
+                ادامه خرید
+            </a>
+
+        </center>
+    </div>
+</div>
+
+
+<br><br><br><br><br>
+
+
+{% endblock %}
