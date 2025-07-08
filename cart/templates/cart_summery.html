@@ -16,19 +16,22 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h4 class="card-title">{{ product.name }}</h4><br>
+                  <a class="text-black" href="{% url 'product' product.id%}">
+                    <h4 class="card-title mb-3">{{ product.name }}</h4>
+                  </a>
+
                   <h6>توضیحات محصول: </h6>
                   <p class="card-text">{{ product.description }}</p>
 
                   {% if product.is_sale %}
                   <p class="card-text">
-                    قیمت: <strike>{{ product.price|intcomma }}</strike><br>
+                    قیمت: <strike>{{ product.price|intcomma }}</strike>
                     {{ product.sale_price|intcomma }}
                   </p>
                   {% else %}
-                  <p class="card-text">قیمت: {{ product.price|intcomma }}</p>
+                  <p class="card-text fw-bold">قیمت: <span class="px-2 position-relative">{{ product.price|intcomma }}</span></p>
                   {% endif %}
-                  <p class="card-text d-flex align-items-center gap-2">تعداد:
+                  <p class="card-text d-flex align-items-center gap-2 fw-bold">تعداد:
                     <select class="form-select  form-select-sm w-auto" id="select{{product.id}}">
                           {% for key,value in quantities.items %}
                             {% if key == product.id|slugify %}

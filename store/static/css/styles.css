@@ -128,6 +128,24 @@ a.navbar-brand img {
     color: var(--secondary);
 }
 
+.custom-dropdown {
+    border: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px 0;
+    min-width: 180px;
+    font-size: 14px;
+}
+
+.custom-dropdown .dropdown-item {
+    color: #444;
+    padding: 8px 20px;
+}
+
+.custom-dropdown .dropdown-divider {
+    margin: 5px 0;
+}
+
 
 /* End navbar */
 
@@ -486,6 +504,10 @@ input::placeholder {
 
 .product-card .card-body h4 {
     font-size: 16px;
+}
+
+.card-text span {
+    top: 3px;
 }
 
 .payment-title {
