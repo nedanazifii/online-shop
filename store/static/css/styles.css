@@ -146,6 +146,10 @@ a.navbar-brand img {
     margin: 5px 0;
 }
 
+.custom-dropdown .dropdown-item:active {
+    background-color: none !important;
+}
+
 
 /* End navbar */
 
