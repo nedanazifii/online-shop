@@ -79,6 +79,10 @@ def process_order(request):
                         new_item = OrderItem(order=odr, product=product, price=price, quantity=value, user=user)
                         new_item.save()
 
+            for key in list(request.session.keys()):
+                if key == 'session_key':
+                    del request.session[key]
+
             messages.success(request, 'سفارش ثبت شد')
             return redirect('home')
 
@@ -99,6 +103,10 @@ def process_order(request):
                     if int(key) == product.id:
                         new_item = OrderItem(order=odr, product=product, price=price, quantity=value)
                         new_item.save()
+
+            for key in list(request.session.key()):
+                if key == 'session_key':
+                    del request.session[key]
 
             messages.success(request, 'سفارش ثبت شد')
             return redirect('home')

@@ -7,8 +7,9 @@ admin.site.register(OrderItem)
 
 class OrderItemLine(admin.TabularInline):
     model = OrderItem
-    extra = 1
+    extra = 0
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    readonly_fields =  ['date_ordered', 'last_update']
     inlines = [OrderItemLine]
