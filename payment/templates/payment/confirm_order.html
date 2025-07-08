@@ -50,20 +50,25 @@
                     مشخصات ارسال
                   </div>
                   <div class="card-body">
-                      <form action="{% url 'confirm_order' %}" method="post">
+                      <form method="post" action="{% url 'process_order' %}">
                           {% csrf_token %}
-                    {{ shipping_form.as_p }}
+                    نام و نام خوانوادگی: {{user_shipping.shipping_full_name}} <br>
+                      ایمیل{{user_shipping.shipping_email}}<br>
+                      آدرس 1: {{user_shipping.shipping_address1}}<br>
+                      آدرس 2: {{user_shipping.shipping_address2}}<br>
+                      شهر :  {{user_shipping.shipping_city}}<br>
+                      استان :  {{user_shipping.shipping_state}}<br>
+                      کد پستی :  {{user_shipping.shipping_zipcode}}<br>
+                      کشور :  {{user_shipping.shipping_country}}
                   </div>
                 </div>
             </div>
             <br>
-            <a href="{% url 'cart_summery' %}" class="btn btn-sm btn-outline-secondary">
-                ویرایش سفارش
-            </a>
+
             <button type="submit" class="btn btn-sm btn-outline-secondary">
-                ادامه
+              ثبت سفارش و پرداخت
             </button>
-        </form>
+          </form>
         </center>
     </div>
 </div>
