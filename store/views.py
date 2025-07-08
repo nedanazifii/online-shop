@@ -10,7 +10,7 @@ from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UpdateUserInf
 from django.db.models import Q
 from cart.cart import Cart
 from payment.forms import ShippingForm
-from payment.models import ShippingAddress
+from payment.models import ShippingAddress, Order, OrderItem
 
 
 
@@ -183,3 +183,33 @@ def search(request):
 
     return render(request, 'search.html')
 
+
+def user_orders(request):
+    if request.user.is_authenticated:
+        delivered_orders = Order.objects.filter(user=request.user, status='Delivered')
+        others_orders = Order.objects.filter(user=request.user).exclude(status='Delivered')
+
+        context = {
+            'delivered': delivered_orders,
+            'other' : others_orders
+        }
+
+        return render(request, 'orders.html', context=context)
+    else:
+        messages.success(request, 'دسترسی به این صفحه امکان پذیر نمی باشد')
+        return redirect('home')
+
+def order_details(request,order_id):
+    if request.user.is_authenticated:
+        order = Order.objects.get(id=order_id)
+        items = OrderItem.objects.filter(order=order_id)
+
+        context = {
+            'order':order,
+            'items' : items
+        }
+        return render(request, 'order_details.html', context)
+
+    else:
+        messages.success(request, 'دسترسی به این صفحه امکان پذیر نمی باشد')
+        return redirect('home')

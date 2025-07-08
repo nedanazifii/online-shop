@@ -3,7 +3,7 @@ from cart.cart import Cart
 from .forms import ShippingForm
 from .models import ShippingAddress, Order, OrderItem
 from django.contrib import messages
-from store.models import Product
+from store.models import Product, Profile
 from django.contrib.auth.models import User
 
 
@@ -82,6 +82,8 @@ def process_order(request):
             for key in list(request.session.keys()):
                 if key == 'session_key':
                     del request.session[key]
+            current_user = Profile.objects.filter(user__id=request.user.id)
+            current_user.update(old_cart="")
 
             messages.success(request, 'سفارش ثبت شد')
             return redirect('home')
