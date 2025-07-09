@@ -80,6 +80,10 @@ a.navbar-brand img {
     color: black;
 }
 
+.dropdown-item:active {
+    background-color: none
+}
+
 .nav-item .active {
     color: var(--primary) !important;
 }
@@ -877,4 +881,108 @@ ul {
 }
 
 
-/* End .products-page */
+/* End products-page */
+
+
+/* checkout page */
+
+.checkout-container {
+    max-width: 700px;
+    margin: 30px auto;
+    color: #444;
+    direction: rtl;
+}
+
+.checkout-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    box-shadow: none;
+}
+
+.checkout-card-header {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--primary);
+    border-bottom: 1.5px solid var(--primary);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.checkout-card-body {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #444;
+    text-align: right;
+}
+
+.checkout-card-body small {
+    color: #666;
+    font-weight: 400;
+}
+
+.checkout-card-body strong {
+    color: #555;
+}
+
+.btn-checkout {
+    display: inline-block;
+    color: #ff6600;
+    border: 1.5px solid #ff6600;
+    padding: 8px 20px;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    text-decoration: none;
+    margin: 5px 5px 0 0;
+}
+
+.btn-checkout:hover {
+    background-color: #ff6600;
+    color: #fff;
+}
+
+
+/* فرم ارسال */
+
+.checkout-form input,
+.checkout-form select,
+.checkout-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    direction: rtl;
+}
+
+.checkout-form input:focus,
+.checkout-form select:focus,
+.checkout-form textarea:focus {
+    border-color: #ff6600;
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 102, 0, 0.3);
+}
+
+
+/* ریسپانسیو */
+
+@media (max-width: 576px) {
+    .checkout-container {
+        margin: 20px 15px;
+    }
+    .checkout-card-header {
+        font-size: 1.1rem;
+    }
+}
+
+
+/* End checkout page */

@@ -11,28 +11,6 @@
         <div class="col-md-8 p-4">
           <h3 class="product-title mb-4">{{ product.name }}</h3>
           <div class="product-desc mb-4">{{ product.description|linebreaks }}</div>
-
-          <!-- <h5 class="mb-2">ویژگی‌ها:</h5> -->
-
-          <!-- {% regroup product.feature_values.all by subfeature.feature as feature_groups %}
-
-          <ul>
-            {% for group in feature_groups %}
-              <li>
-                <strong>{{ group.list.0.subfeature.feature.title }}</strong>:
-                <ul>
-                  {% for item in group.list %}
-                    <li>{{ item.subfeature.title }}{% if item.value %}: {{ item.value }}{% endif %}</li>
-                  {% endfor %}
-                </ul>
-              </li>
-            {% empty %}
-              <li>هیچ ویژگی‌ای برای این محصول ثبت نشده.</li>
-            {% endfor %}
-          </ul>
-           -->
-          
-
           <div class="mb-4">
             {% if product.is_sale %}
               <span class="price-old">{{ product.price|intcomma }} تومان</span>

@@ -4,68 +4,55 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <center>
-            <div class="col-10">
-
-                <div class="card">
-                  <div class="card-header">
-                    سفارشات شما
-                  </div>
-                    <br>
-                  <div class="card-body">
-                    {% for product in cart_products %}
-                      <br>{{ product.name }}<br>
-
-                      <small>
-                      قیمت واحد:
-                      {% if product.is_sale %}
-                        {{ product.sale_price|intcomma }}
-                      {% else %}
-                          {{ product.price|intcomma }}
-                      {% endif %}
-                      </small><br>
-
-                      <small>
-                      تعداد:
-                      {% for key,value in quantities.items %}
-                            {% if key == product.id|slugify %}
-                                {{ value }}
-                            {% endif %}
-                      {% endfor %}
-                      </small><br>
-
-                    {% endfor %}
-                      <br>
-                      <strong>
-                          مجموع کل سفارشات:
-                          {{ total|intcomma }}<br>
-                      </strong>
-                  </div>
-                </div>
-                <br>
-                <div class="card">
-                  <div class="card-header">
-                    مشخصات ارسال
-                  </div>
-                  <div class="card-body">
-                      <form action="{% url 'confirm_order' %}" method="post">
-                          {% csrf_token %}
-                    {{ shipping_form.as_p }}
-                  </div>
-                </div>
-            </div>
-            <br>
-            <a href="{% url 'cart_summery' %}" class="btn btn-sm btn-outline-secondary">
-                ویرایش سفارش
-            </a>
-            <button type="submit" class="btn btn-sm btn-outline-secondary">
-                ادامه
-            </button>
-        </form>
-        </center>
+<div class="checkout-container">
+  <div class="checkout-card">
+    <div class="checkout-card-header">سفارشات شما</div>
+    <div class="checkout-card-body">
+      {% for product in cart_products %}
+        <div style="margin-bottom: 15px;">
+          <div><strong>{{ product.name }}</strong></div>
+          <div>
+            <small>قیمت واحد: 
+              {% if product.is_sale %}
+                {{ product.sale_price|intcomma }}
+              {% else %}
+                {{ product.price|intcomma }}
+              {% endif %}
+            </small>
+          </div>
+          <div>
+            <small>تعداد: 
+              {% for key,value in quantities.items %}
+                {% if key == product.id|slugify %}
+                  {{ value }}
+                {% endif %}
+              {% endfor %}
+            </small>
+          </div>
+        </div>
+      {% empty %}
+        <p style="color:#999; font-style: italic;">هیچ محصولی در سبد خرید نیست.</p>
+      {% endfor %}
+      <div style="margin-top: 15px;">
+        <strong>مجموع کل سفارشات: {{ total|intcomma }}</strong>
+      </div>
     </div>
+  </div>
+
+  <div class="checkout-card">
+    <div class="checkout-card-header">مشخصات ارسال</div>
+    <div class="checkout-card-body">
+      <form class="checkout-form" action="{% url 'confirm_order' %}" method="post">
+        {% csrf_token %}
+        {{ shipping_form.as_p }}
+
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: flex-start;">
+          <a href="{% url 'cart_summery' %}" class="btn-checkout" style="text-decoration:none; display: inline-block;">ویرایش سفارش</a>
+          <button type="submit" class="btn-checkout">ادامه</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 
