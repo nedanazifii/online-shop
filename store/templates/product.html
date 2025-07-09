@@ -5,14 +5,14 @@
 
     <div class="container py-5">
       <div class="row product-card">
-        <div class="col-md-5 p-3">
+        <div class="col-md-4 p-3">
           <img src="{{ product.picture.url }}" class="product-image" alt="{{ product.name }}">
         </div>
-        <div class="col-md-7 p-4">
-          <h1 class="product-title mb-3">{{ product.name }}</h1>
-          <p class="text-muted mb-4">{{ product.description|linebreaks}}</p>
+        <div class="col-md-8 p-4">
+          <h3 class="product-title mb-4">{{ product.name }}</h3>
+          <div class="product-desc mb-4">{{ product.description|linebreaks }}</div>
 
-          <h5 class="mb-2">ویژگی‌ها:</h5>
+          <!-- <h5 class="mb-2">ویژگی‌ها:</h5> -->
 
           <!-- {% regroup product.feature_values.all by subfeature.feature as feature_groups %}
 
@@ -43,20 +43,19 @@
           </div>
 
           <div class="mb-4">
-            <label for="cart-qty" class="form-label">تعداد</label>
+            <label for="cart-qty" class="form-label ps-2">تعداد</label>
             <select class="form-select w-25 d-inline" id="cart-qty">
-              <option selected disabled>انتخاب کنید</option>
               {% for i in "1234" %}
                 <option value="{{ i }}">{{ i }}</option>
               {% endfor %}
             </select>
           </div>
 
-          <div class="d-flex gap-2">
+          <div class="d-flex gap-3">
             <button class="btn btn-buy px-4" type="button" value="{{ product.id }}" id="add-cart">
               افزودن به سبد خرید
             </button>
-            <a href="{% url 'home' %}" class="btn btn-outline-secondary">بازگشت به صفحه اصلی</a>
+            <a href="{% url 'home' %}" class="btn btn-back-home btn-outline-secondary">بازگشت به صفحه اصلی</a>
           </div>
         </div>
       </div>
@@ -82,6 +81,37 @@
         <a href="{% url 'cart_summery' %}" class="btn btn-primary btn-sm w-100">مشاهده سبد خرید</a>
       </div>
     </div>
+
+    <h3> توضیحات تکمیلی</h3>
+    <table class="table product-features-table">
+      <tbody>
+        {% regroup product.feature_values.all by subfeature.feature as feature_groups %}
+        {% for group in feature_groups %}
+          <tr>
+            <td colspan="2" class="feature-group-title">
+              {{ group.grouper.title }}
+            </td>
+          </tr>
+          {% for item in group.list %}
+            <tr>
+              <td class="feature-title">{{ item.subfeature.title }}</td>
+              <td class="feature-value">
+                {% if item.value %}
+                  {{ item.value }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        {% empty %}
+          <tr>
+            <td colspan="2" class="no-features">هیچ ویژگی‌ای برای این محصول ثبت نشده.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
 
 
     <script>

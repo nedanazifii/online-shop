@@ -642,20 +642,32 @@ input::placeholder {
     text-decoration: line-through;
     color: #bfbfbf;
     margin-left: 12px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .price-new {
-    font-size: 28px;
+    font-size: 20px;
     color: #ff6600;
     font-weight: 700;
     letter-spacing: 0.03em;
 }
 
 .product-title {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
+}
+
+.product-desc {
+    font-size: 15px;
+    font-weight: 400;
     margin-bottom: 16px;
+    color: #555;
+}
+
+.product-desc br {
+    display: block;
+    margin-bottom: 10px;
+    content: "";
 }
 
 .btn-buy {
@@ -664,7 +676,7 @@ input::placeholder {
     border: none;
     padding: 12px 28px;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 15px;
     border-radius: 8px;
     transition: background-color 0.3s ease
 }
@@ -676,17 +688,24 @@ input::placeholder {
     outline: none;
 }
 
+.btn-back-home {
+    padding: 12px 28px;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease !important
+}
+
 #cart-qty {
     max-width: 100px;
     font-weight: 600;
     border-radius: 8px;
-    border: 1.5px solid #ff6600;
-    transition: box-shadow 0.3s ease;
+    border: 1.5px solid var(--primary);
 }
 
 #cart-qty:focus {
-    box-shadow: 0 0 8px 2px rgba(255, 102, 0, 0.5);
     outline: none;
+    box-shadow: none;
 }
 
 ul {
@@ -696,6 +715,62 @@ ul {
     font-weight: 500;
     line-height: 1.5;
     list-style: none;
+}
+
+.product-features-table {
+    width: 100%;
+    border-collapse: collapse;
+    direction: rtl;
+    border: none;
+}
+
+.product-features-table td:first-child {
+    width: 150px !important;
+}
+
+.product-features-table th,
+.product-features-table td {
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+    padding: 8px 12px;
+    text-align: right;
+    vertical-align: middle;
+    padding: 30px 0;
+}
+
+.feature-header {
+    width: 20%;
+    text-align: right;
+}
+
+.spec-header {
+    text-align: right;
+}
+
+.feature-group-title {
+    font-weight: bold;
+    border-bottom: 3px solid var(--primary) !important;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    text-align: right;
+    background-color: #f8f9fa;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.feature-title {
+    text-align: right;
+    font-weight: bold;
+}
+
+.feature-value {
+    text-align: right;
+}
+
+.no-features {
+    text-align: center;
+    font-style: italic;
+    color: #999;
 }
 
 .popup {
