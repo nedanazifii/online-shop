@@ -57,11 +57,35 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-class ProductFeature(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='features')
+# class ProductFeature(models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='features')
+#     title = models.CharField(max_length=100)
+#     value = models.CharField(max_length=300, blank=True, null=True)
+
+#     def __str__(self):
+#         return f"{self.title}: {self.value}"
+
+
+class Feature(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='features')
     title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.title} ({self.category.name})"
+    
+
+class SubFeature(models.Model):
+    feature = models.ForeignKey(Feature, on_delete=models.CASCADE, related_name='subfeatures')
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.title} ({self.feature.title})"
+
+
+class ProductFeatureValue(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='feature_values')
+    subfeature = models.ForeignKey(SubFeature, on_delete=models.CASCADE)
     value = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.title}: {self.value}"
-
+        return f"{self.product.name} - {self.subfeature.title}: {self.value}"
