@@ -4,77 +4,61 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <center>
-            <div class="col-10">
+<div class="confirm-container">
+  <div class="confirm-box">
 
-                <div class="card">
-                  <div class="card-header">
-                    سفارشات شما
-                  </div>
-                    <br>
-                  <div class="card-body">
-                    {% for product in cart_products %}
-                      <br>{{ product.name }}<br>
-
-                      <small>
-                      قیمت واحد:
-                      {% if product.is_sale %}
-                        {{ product.sale_price|intcomma }}
-                      {% else %}
-                          {{ product.price|intcomma }}
-                      {% endif %}
-                      </small><br>
-
-                      <small>
-                      تعداد:
-                      {% for key,value in quantities.items %}
-                            {% if key == product.id|slugify %}
-                                {{ value }}
-                            {% endif %}
-                      {% endfor %}
-                      </small><br>
-
-                    {% endfor %}
-                      <br>
-                      <strong>
-                          مجموع کل سفارشات:
-                          {{ total|intcomma }}<br>
-                      </strong>
-                  </div>
-                </div>
-                <br>
-                <div class="card">
-                  <div class="card-header">
-                    مشخصات ارسال
-                  </div>
-                  <div class="card-body">
-                      <form method="post" action="{% url 'process_order' %}">
-                          {% csrf_token %}
-                    نام و نام خوانوادگی: {{user_shipping.shipping_full_name}} <br>
-                      ایمیل{{user_shipping.shipping_email}}<br>
-                      آدرس 1: {{user_shipping.shipping_address1}}<br>
-                      آدرس 2: {{user_shipping.shipping_address2}}<br>
-                      شهر :  {{user_shipping.shipping_city}}<br>
-                      استان :  {{user_shipping.shipping_state}}<br>
-                      کد پستی :  {{user_shipping.shipping_zipcode}}<br>
-                      کشور :  {{user_shipping.shipping_country}}
-                  </div>
-                </div>
-            </div>
+    <div class="section">
+      <h2 class="section-title">🛒 سفارشات شما</h2>
+      <div class="products-list">
+        {% for product in cart_products %}
+        <div class="product-item">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-details">
+            <span>قیمت:</span>
+            {% if product.is_sale %}
+              {{ product.sale_price|intcomma }} تومان
+            {% else %}
+              {{ product.price|intcomma }} تومان
+            {% endif %}
             <br>
-
-            <button type="submit" class="btn btn-sm btn-outline-secondary">
-              ثبت سفارش و پرداخت
-            </button>
-          </form>
-        </center>
+            <span>تعداد:</span>
+            {% for key, value in quantities.items %}
+              {% if key == product.id|slugify %}
+                {{ value }}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% empty %}
+          <div class="empty-cart">سبد خرید شما خالی است.</div>
+        {% endfor %}
+      </div>
+      <div class="total">
+        مجموع کل: <strong>{{ total|intcomma }}</strong> تومان
+      </div>
     </div>
+
+    <div class="section">
+      <h2 class="section-title">📦 مشخصات ارسال</h2>
+      <form method="post" action="{% url 'process_order' %}">
+        {% csrf_token %}
+        <ul class="shipping-list">
+          <li><strong>نام و نام خانوادگی:</strong> {{ user_shipping.shipping_full_name }}</li>
+          <li><strong>ایمیل:</strong> {{ user_shipping.shipping_email }}</li>
+          <li><strong>آدرس ۱:</strong> {{ user_shipping.shipping_address1 }}</li>
+          <li><strong>آدرس ۲:</strong> {{ user_shipping.shipping_address2 }}</li>
+          <li><strong>شهر:</strong> {{ user_shipping.shipping_city }}</li>
+          <li><strong>استان:</strong> {{ user_shipping.shipping_state }}</li>
+          <li><strong>کد پستی:</strong> {{ user_shipping.shipping_zipcode }}</li>
+          <li><strong>کشور:</strong> {{ user_shipping.shipping_country }}</li>
+        </ul>
+
+        <div class="form-footer">
+          <button type="submit" class="confirm-btn">ثبت سفارش و پرداخت</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
 </div>
-
-
-<br><br><br><br><br>
-
-
 {% endblock %}
