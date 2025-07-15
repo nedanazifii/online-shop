@@ -12,21 +12,21 @@ class SignUpForm(UserCreationForm):
 
     first_name = forms.CharField(
         label='',
-        max_length=20,
+        max_length=50,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خود را وارد کنید'}),
         error_messages={
             'required': 'لطفاً نام خود را وارد کنید.',
-            'max_length': 'نام نباید بیش از ۲۰ کاراکتر باشد.'
+            'max_length': 'نام نباید بیش از ۵۰ کاراکتر باشد.'
         }
     )
 
     last_name = forms.CharField(
         label='',
-        max_length=20,
+        max_length=50,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}),
         error_messages={
             'required': 'لطفاً نام خانوادگی خود را وارد کنید.',
-            'max_length': 'نام خانوادگی نباید بیش از ۲۰ کاراکتر باشد.'
+            'max_length': 'نام خانوادگی نباید بیش از ۵۰ کاراکتر باشد.'
         }
     )
 
@@ -41,11 +41,11 @@ class SignUpForm(UserCreationForm):
 
     username = forms.CharField(
         label='',
-        max_length=20,
+        max_length=50,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کاربری '}),
         error_messages={
             'required': 'لطفاً نام کاربری را وارد کنید.',
-            'max_length': 'نام کاربری نباید بیش از ۲۰ کاراکتر باشد.'
+            'max_length': 'نام کاربری نباید بیش از ۵۰ کاراکتر باشد.'
         }
     )
 
@@ -135,47 +135,8 @@ class SignUpForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
 
 
-# class UpdateUserForm(UserChangeForm):
-#     password = None
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['username'].widget.attrs.pop('autofocus', None)
-#
-#     first_name = forms.CharField(
-#         label='',
-#         max_length=50,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خود را وارد کنید'}),
-#         required=False
-#     )
-#
-#     last_name = forms.CharField(
-#         label='',
-#         max_length=50,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}),
-#         required=False
-#     )
-#
-#     email = forms.EmailField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ایمیل خود را وارد کنید'}),
-#         required=False
-#     )
-#
-#     username = forms.CharField(
-#         label='',
-#         max_length=20,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کاربری '}),
-#         required=False
-#     )
-#
-#     class Meta:
-#         model = User
-#         fields = ('first_name', 'last_name', 'email', 'username')
-#
-
 class UpdateUserForm(UserChangeForm):
-    password = None  # حذف فیلد پسورد
+    password = None
 
     first_name = forms.CharField(
         label='',
@@ -208,11 +169,11 @@ class UpdateUserForm(UserChangeForm):
 
     username = forms.CharField(
         label='',
-        max_length=20,
+        max_length=50,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کاربری'}),
         required=False,
         error_messages={
-            'max_length': 'نام کاربری نباید بیش از ۲۰ کاراکتر باشد.'
+            'max_length': 'نام کاربری نباید بیش از ۵۰ کاراکتر باشد.'
         }
     )
 
@@ -231,38 +192,10 @@ class UpdateUserForm(UserChangeForm):
         username = self.cleaned_data.get('username')
         if username:
             if User.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
-                raise forms.ValidationError('این نام کاربری قبلاً گرفته شده است.')
+                raise forms.ValidationError('این نام کاربری قبلاً ثبت شده است.')
         return username
 
-# class UpdatePasswordForm(SetPasswordForm):
-#     new_password1 = forms.CharField(
-#         label='',
-#         widget=forms.PasswordInput(
-#             attrs={
-#                 'class': 'form-control',
-#                 'name': 'password',
-#                 'type': 'password',
-#                 'placeholder': 'رمز عبور جدید'
-#
-#             }
-#         )
-#     )
-#
-#     new_password2 = forms.CharField(
-#         label='',
-#         widget=forms.PasswordInput(
-#             attrs={
-#                 'class': 'form-control',
-#                 'name': 'password',
-#                 'type': 'password',
-#                 'placeholder': 'تکرار رمز عبور'
-#             }
-#         )
-#     )
-#
-#     class Meta:
-#         model = User
-#         fields = ('new_password1', 'new_password2')
+
 class UpdatePasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(
         label='',
@@ -293,81 +226,64 @@ class UpdatePasswordForm(SetPasswordForm):
         return password
 
 
-# class UpdateUserInfo(forms.ModelForm):
-#     phone = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شماره تلفن'}),
-#         required=False
-#     )
-#     address1 = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس اول'}),
-#         required=False
-#     )
-#     address2 = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس دوم'}),
-#         required=False
-#     )
-#     city = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شهر'}),
-#         required=False
-#     )
-#     state = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'استان'}),
-#         required=False
-#     )
-#     zipcode = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کد پستی'}),
-#         required=False
-#     )
-#     country = forms.CharField(
-#         label='',
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کشور'}),
-#         required=False
-#     )
-#
-#     class Meta:
-#         model = Profile
-#         fields = ('phone', 'address1', 'address2', 'city', 'state', 'zipcode', 'country')
 class UpdateUserInfoForm(forms.ModelForm):
     phone = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شماره تلفن'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'شماره تلفن نباید بیش از ۱۵ کاراکتر باشد.',
+            'invalid': 'شماره تلفن معتبر نیست.',
+        }
     )
     address1 = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس اول'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'آدرس اول نباید بیش از ۱۰۰ کاراکتر باشد.',
+        }
     )
     address2 = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس دوم'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'آدرس دوم نباید بیش از ۱۰۰ کاراکتر باشد.',
+        }
     )
     city = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شهر'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'نام شهر نباید بیش از ۵۰ کاراکتر باشد.',
+        }
     )
     state = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'استان'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'نام استان نباید بیش از ۵۰ کاراکتر باشد.',
+        }
     )
     zipcode = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کد پستی'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'کد پستی نباید بیش از ۲۰ کاراکتر باشد.',
+            'invalid': 'کد پستی باید فقط شامل عدد باشد.',
+        }
     )
     country = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کشور'}),
-        required=False
+        required=False,
+        error_messages={
+            'max_length': 'نام کشور نباید بیش از ۵۰ کاراکتر باشد.',
+        }
     )
 
     class Meta:
@@ -406,5 +322,3 @@ class UpdateUserInfoForm(forms.ModelForm):
         if state and len(state) > 50:
             raise forms.ValidationError('نام استان نباید بیش از ۵۰ کاراکتر باشد.')
         return state
-
-
