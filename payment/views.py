@@ -106,7 +106,7 @@ def process_order(request):
                         new_item = OrderItem(order=odr, product=product, price=price, quantity=value)
                         new_item.save()
 
-            for key in list(request.session.key()):
+            for key in list(request.session.keys()):
                 if key == 'session_key':
                     del request.session[key]
 
