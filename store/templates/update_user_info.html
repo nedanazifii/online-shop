@@ -7,15 +7,11 @@
                 <div class="col-8">
                     <p align="justify">
                         <center> <h4>اطلاعات کاربری</h4> </center>
-                        <form method="post" action="{% url 'update_info' %}" class="signup-form">
+                        <form method="post" action="{% url 'update_user_info' %}" class="signup-form">
                               {% csrf_token %}
                                     <h2 style="font-size: 30px">ویرایش اطلاعات کاربری</h2><br>
                                     <h6 style="">برای ثبت سفارش اطلاعات خود را تکمیل کنید</h6>
                                     {{ form.as_p }}
-                                    <br><br>
-                                    <center> <h4>اطلاعات ارسال</h4> </center>
-                                    <br><br>
-                                    {{ shipping_form.as_p }}
                               <button type="submit" class="btn btn-secondary">ویرایش</button>
                         </form>
                         <br>

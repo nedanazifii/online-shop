@@ -7,7 +7,7 @@ class ShippingForm(forms.ModelForm):
     shipping_full_name = forms.CharField(
         label='',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'full name'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام کامل'}),
         required=True,
         error_messages={
             'required': 'لطفاً نام را وارد کنید.',
@@ -17,7 +17,7 @@ class ShippingForm(forms.ModelForm):
 
     shipping_email = forms.EmailField(
         label='',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'email'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ایمیل'}),
         required=True,
         error_messages={
             'required': 'لطفاً ایمیل را وارد کنید.',
@@ -28,7 +28,7 @@ class ShippingForm(forms.ModelForm):
     shipping_phone = forms.CharField(
         label='',
         max_length=20,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'phone'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شماره تلفن'}),
         required=True,
         error_messages={
             'required': 'لطفاً شماره تلفن را وارد کنید.',
@@ -39,7 +39,7 @@ class ShippingForm(forms.ModelForm):
     shipping_address1 = forms.CharField(
         label='',
         max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'address 1 '}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس اول '}),
         required=True,
         error_messages={
             'required': 'آدرس اول الزامی است.',
@@ -50,7 +50,7 @@ class ShippingForm(forms.ModelForm):
     shipping_address2 = forms.CharField(
         label='',
         max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'address 2 '}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس دوم '}),
         required=False,
         error_messages={
             'max_length': 'آدرس نباید بیش از ۱۰۰ کاراکتر باشد.'
@@ -60,7 +60,7 @@ class ShippingForm(forms.ModelForm):
     shipping_city = forms.CharField(
         label='',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'city '}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شهر '}),
         required=True,
         error_messages={
             'required': 'شهر الزامی است.',
@@ -71,7 +71,7 @@ class ShippingForm(forms.ModelForm):
     shipping_state = forms.CharField(
         label='',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'state '}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'استان '}),
         required=True,
         error_messages={
             'required': 'استان الزامی است.',
@@ -82,7 +82,7 @@ class ShippingForm(forms.ModelForm):
     shipping_zipcode = forms.CharField(
         label='',
         max_length=20,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'zipcode '}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کدپستی '}),
         required=False,
         error_messages={
             'max_length': 'کد پستی نباید بیش از ۲۰ رقم باشد.'
@@ -91,7 +91,7 @@ class ShippingForm(forms.ModelForm):
     shipping_country = forms.CharField(
         label='',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'country '}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کشور '}),
         required=False,
         error_messages={
             'max_length': 'نام کشور نباید بیش از ۵۰ کاراکتر باشد.'

@@ -3,9 +3,6 @@ from django.shortcuts import render, redirect
 from .models import Product, Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UpdateUserInfoForm
 from django.db.models import Q
 from cart.cart import Cart
@@ -131,24 +128,54 @@ def update_password(request):
         return render(request, 'update_password.html', {'form': form})
 
 
-def update_info(request):
+# def update_info(request):
+#     if request.user.is_authenticated:
+#
+#         current_user = Profile.objects.get(user=request.user)
+#         shipping_user = ShippingAddress.objects.get(user=request.user)
+#
+#         form = UpdateUserInfoForm(request.POST or None, instance=current_user)
+#         shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+#
+#         if form.is_valid() or shipping_form.is_valid():
+#             form.save()
+#             shipping_form.save()
+#             messages.success(request, 'اطلاعات کاربری ویرایش شد')
+#             return redirect('home')
+#
+#         return render(request, 'update_user_info.html', {'form': form, 'shipping_form':shipping_form})
+#     else:
+#         messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+#         return redirect('home')
+
+def update_user_info(request):
     if request.user.is_authenticated:
-
         current_user = Profile.objects.get(user=request.user)
-        shipping_user = ShippingAddress.objects.get(user=request.user)
-
         form = UpdateUserInfoForm(request.POST or None, instance=current_user)
-        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
 
-        if form.is_valid() or shipping_form.is_valid():
+        if form.is_valid():
             form.save()
-            shipping_form.save()
             messages.success(request, 'اطلاعات کاربری ویرایش شد')
             return redirect('home')
 
-        return render(request, 'update_info.html', {'form': form, 'shipping_form':shipping_form})
+        return render(request, 'update_user_info.html', {'form': form})
     else:
-        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+        messages.error(request, 'ابتدا باید وارد حساب کاربری خود شوید')
+        return redirect('home')
+
+def update_shipping_info(request):
+    if request.user.is_authenticated:
+        shipping_user = ShippingAddress.objects.get(user=request.user)
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+
+        if shipping_form.is_valid():
+            shipping_form.save()
+            messages.success(request, 'اطلاعات ارسال ویرایش شد')
+            return redirect('home')
+
+        return render(request, 'update_shipping_info.html', {'shipping_form': shipping_form})
+    else:
+        messages.error(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
 
 
