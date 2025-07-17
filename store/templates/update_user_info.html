@@ -1,24 +1,83 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <center>
-                <div class="col-8">
-                    <p align="justify">
-                        <center> <h4>اطلاعات کاربری</h4> </center>
-                        <form method="post" action="{% url 'update_user_info' %}" class="signup-form">
-                              {% csrf_token %}
-                                    <h2 style="font-size: 30px">ویرایش اطلاعات کاربری</h2><br>
-                                    <h6 style="">برای ثبت سفارش اطلاعات خود را تکمیل کنید</h6>
-                                    {{ form.as_p }}
-                              <button type="submit" class="btn btn-secondary">ویرایش</button>
-                        </form>
-                        <br>
-                    </p>
+<div class="container update-user login-form" >
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h4 style="text-align: center; font-size: 30px;">اطلاعات کاربری</h4>
+            <form method="post" action="{% url 'update_user_info' %}" novalidate>
+                {% csrf_token %}
+                <h5 class="text-center mb-4">برای ثبت سفارش اطلاعات خود را تکمیل کنید</h5>
+            
+                <div class="mb-3">
+                    <input type="text" name="phone" placeholder="شماره تلفن"
+                        class="form-control custom-input {% if form.errors.phone %}is-invalid{% endif %}"
+                        value="{{ form.phone.value|default:'' }}">
+                    {% if form.errors.phone %}
+                        <div class="invalid-feedback d-block">{{ form.errors.phone|striptags }}</div>
+                    {% endif %}
                 </div>
-            </center>
+            
+                <div class="mb-3">
+                    <input type="text" name="address1" placeholder="آدرس اول"
+                        class="form-control custom-input {% if form.errors.address1 %}is-invalid{% endif %}"
+                        value="{{ form.address1.value|default:'' }}">
+                    {% if form.errors.address1 %}
+                        <div class="invalid-feedback d-block">{{ form.errors.address1|striptags }}</div>
+                    {% endif %}
+                </div>
+            
+                <div class="mb-3">
+                    <input type="text" name="address2" placeholder="آدرس دوم"
+                        class="form-control custom-input {% if form.errors.address2 %}is-invalid{% endif %}"
+                        value="{{ form.address2.value|default:'' }}">
+                    {% if form.errors.address2 %}
+                        <div class="invalid-feedback d-block">{{ form.errors.address2|striptags }}</div>
+                    {% endif %}
+                </div>
+            
+                <div class="mb-3">
+                    <input type="text" name="city" placeholder="شهر"
+                        class="form-control custom-input {% if form.errors.city %}is-invalid{% endif %}"
+                        value="{{ form.city.value|default:'' }}">
+                    {% if form.errors.city %}
+                        <div class="invalid-feedback d-block">{{ form.errors.city|striptags }}</div>
+                    {% endif %}
+                </div>
+            
+                <div class="mb-3">
+                    <input type="text" name="state" placeholder="استان"
+                        class="form-control custom-input {% if form.errors.state %}is-invalid{% endif %}"
+                        value="{{ form.state.value|default:'' }}">
+                    {% if form.errors.state %}
+                        <div class="invalid-feedback d-block">{{ form.errors.state|striptags }}</div>
+                    {% endif %}
+                </div>
+            
+                <div class="mb-3">
+                    <input type="text" name="zipcode" placeholder="کد پستی"
+                        class="form-control custom-input {% if form.errors.postal_code %}is-invalid{% endif %}"
+                        value="{{ form.postal_code.value|default:'' }}">
+                    {% if form.errors.postal_code %}
+                        <div class="invalid-feedback d-block">{{ form.errors.postal_code|striptags }}</div>
+                    {% endif %}
+                </div>
+            
+                <div class="mb-3">
+                    <input type="text" name="country" readonly class="form-control custom-input" value="IRAN">
+                </div>
+            
+                <div class="text-center">
+                    <button type="submit" class="btn btn-secondary">ویرایش</button>
+                </div>
+            </form>            
+
+            <br>    
+            <div class="change-pass text-center">
+                <a href="{% url 'update_password' %}" class="btn btn-warning">ویرایش رمز</a>
+            </div>
         </div>
     </div>
+</div>
 <br><br>
 {% endblock %}
