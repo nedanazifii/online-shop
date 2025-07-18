@@ -352,7 +352,7 @@ input::placeholder {
 
 .login-form button,
 .signup-form button {
-    width: 60%;
+    width: 60% !important;
     padding: 15px 20px;
     background-color: var(--primary);
     color: var(--secondary);

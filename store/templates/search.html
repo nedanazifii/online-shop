@@ -6,8 +6,7 @@
 
 <br><br>
     <div class="container">
-        <div class="row">
-            <center>
+        <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% if searched %}
@@ -33,7 +32,6 @@
                                          {{ item.sale_price | intcomma }} تومان
                                      </div>
                                  </div>
-                                 <!-- Product actions-->
                                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                      <div class="text-center"><a class="btn btn-outline-dark mt-auto btn-item-info" href="{% url 'product' item.id%}">مشاهده محصول</a></div>
                                  </div>
@@ -65,10 +63,8 @@
                     {% endif %}
                         {% endfor %}
                     {% endif %}
-
                      </div>
                 </div>
-            </center>
         </div>
     </div>
 <br><br>
