@@ -14,8 +14,6 @@
 
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"> خروج </a></li>
-                <!--                    <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}"> حساب کاربری </a></li>-->
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="{% url 'home' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false"> حساب  </a>
                     <ul class="dropdown-menu custom-dropdown bg-light" aria-labelledby="navbarDropdown">
@@ -51,24 +49,17 @@
                     </ul>
                 </li>
             </ul>
+            
             <form class="d-flex search-nav" role="search" action="{% url 'search' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control me-2" type="search" placeholder="محصول" name="searched" aria-label="Search" /> <br>
                 <button class="btn  search-btn" type="submit"><i class="bi bi-search"></i></button>
             </form>
-            <!-- <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
-            </form> -->
 
-            <form class="d-flex">
                 <a href="{% url 'cart_summery' %}" class="btn btn-cart">
                     <i class="bi-cart-fill me-1"></i>
                     <span class="badge cart-badge" id="cart_quantity">{{ cart|length }}</span>
                 </a>
-            </form>
 
         </div>
     </div>

@@ -57,7 +57,6 @@
                           {% for order in delivered %}
                             <tr>
                                 <th scope="row"><a href="{% url 'order_details' order.id %}">شماره سفارش {{ order.id }} </a></th>
-<!--                              <th scope="row">{{ order.id }}</th>-->
                               <td>{{ order.full_name }}</td>
                               <td>{{ order.last_update }}</td>
                               <td>{{ order.get_status_display }}</td>
