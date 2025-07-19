@@ -22,12 +22,14 @@ class ShippingAddress(models.Model):
     def __str__(self):
         return f'Shipping Address From {self.shipping_full_name}'
 
+
 def create_shipping_user(sender, instance, created, **kwargs):
     if created:
         user_shipping = ShippingAddress(user=instance)
         user_shipping.save()
 
-post_save.connect(create_shipping_user,sender=User)
+
+post_save.connect(create_shipping_user, sender=User)
 
 
 class Order(models.Model):
@@ -49,7 +51,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         if self.pk:
             old_status = Order.objects.get(id=self.pk).status
-            if old_status!= self.status:
+            if old_status != self.status:
                 self.last_update = jdatetime.datetime.now()
 
         super().save(*args, **kwargs)

@@ -4,7 +4,6 @@ from .forms import ShippingForm
 from .models import ShippingAddress, Order, OrderItem
 from django.contrib import messages
 from store.models import Product, Profile
-from django.contrib.auth.models import User
 
 
 def payment(request):

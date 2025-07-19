@@ -28,7 +28,6 @@ class Cart:
 
             current_user.update(old_cart=str(db_cart))
 
-
     def db_add(self, product, quantity):
         product_id = str(product)
         product_qty = str(quantity)

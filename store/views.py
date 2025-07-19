@@ -10,7 +10,6 @@ from payment.forms import ShippingForm
 from payment.models import ShippingAddress, Order, OrderItem
 
 
-
 def product_list(request):
     all_products = Product.objects.all()[:6]
     return render(request, 'index.html', {'products': all_products})
@@ -23,8 +22,6 @@ def all_product_list(request):
 
 def about(request):
     return render(request, 'about.html')
-
-
 
 
 def login_user(request):
@@ -87,24 +84,24 @@ def signup_user(request):
     return render(request, 'signup.html', {'form': form})
 
 
-
 def update_user(request):
     if not request.user.is_authenticated:
         messages.warning(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
 
-    current_user = request.user  
+    current_user = request.user
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=current_user)
         if user_form.is_valid():
             user_form.save()
-            login(request, current_user) 
+            login(request, current_user)
             messages.success(request, 'اطلاعات ویرایش شد')
             return redirect('home')
     else:
         user_form = UpdateUserForm(instance=current_user)
 
     return render(request, 'update_user.html', {'user_form': user_form})
+
 
 def update_password(request):
     if not request.user.is_authenticated:
@@ -163,6 +160,7 @@ def update_user_info(request):
         messages.error(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
 
+
 def update_shipping_info(request):
     if request.user.is_authenticated:
         shipping_user = ShippingAddress.objects.get(user=request.user)
@@ -177,7 +175,6 @@ def update_shipping_info(request):
     else:
         messages.error(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
-
 
 
 def product_detail(request, product_id):
@@ -218,7 +215,7 @@ def user_orders(request):
 
         context = {
             'delivered': delivered_orders,
-            'other' : others_orders
+            'other': others_orders
         }
 
         return render(request, 'orders.html', context=context)
@@ -226,14 +223,15 @@ def user_orders(request):
         messages.success(request, 'دسترسی به این صفحه امکان پذیر نمی باشد')
         return redirect('home')
 
-def order_details(request,order_id):
+
+def order_details(request, order_id):
     if request.user.is_authenticated:
         order = Order.objects.get(id=order_id)
         items = OrderItem.objects.filter(order=order_id)
 
         context = {
-            'order':order,
-            'items' : items
+            'order': order,
+            'items': items
         }
         return render(request, 'order_details.html', context)
 
