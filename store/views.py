@@ -11,7 +11,7 @@ from payment.models import ShippingAddress, Order, OrderItem
 
 
 def product_list(request):
-    all_products = Product.objects.all()[:6]
+    all_products = Product.objects.order_by('-created_at')[:6] 
     return render(request, 'index.html', {'products': all_products})
 
 
@@ -75,7 +75,7 @@ def signup_user(request):
             user = authenticate(request, username=username, password=password1)
             login(request, user)
             messages.success(request, "حساب کاربری شما ساخته شد", 'success')
-            return redirect('update_info')
+            return redirect('update_user_info')
         else:
             messages.warning(request, 'مشکلی در ثبت نام وجود دارد', 'warning')
             return render(request, 'signup.html', {'form': form})
@@ -123,27 +123,6 @@ def update_password(request):
     else:
         form = UpdatePasswordForm(current_user)
         return render(request, 'update_password.html', {'form': form})
-
-
-# def update_info(request):
-#     if request.user.is_authenticated:
-#
-#         current_user = Profile.objects.get(user=request.user)
-#         shipping_user = ShippingAddress.objects.get(user=request.user)
-#
-#         form = UpdateUserInfoForm(request.POST or None, instance=current_user)
-#         shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
-#
-#         if form.is_valid() or shipping_form.is_valid():
-#             form.save()
-#             shipping_form.save()
-#             messages.success(request, 'اطلاعات کاربری ویرایش شد')
-#             return redirect('home')
-#
-#         return render(request, 'update_user_info.html', {'form': form, 'shipping_form':shipping_form})
-#     else:
-#         messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
-#         return redirect('home')
 
 def update_user_info(request):
     if request.user.is_authenticated:

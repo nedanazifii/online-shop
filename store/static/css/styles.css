@@ -218,6 +218,14 @@ section.product-slider {
 
 /* product */
 
+.section-title {
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+    margin-bottom: 30px !important;
+    color: black;
+}
+
 .products-header a {
     font-size: 17px;
     color: black;
